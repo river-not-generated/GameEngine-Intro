@@ -1,0 +1,35 @@
+#include "pch.h"
+#include "Engine.h"
+#include "framework.h"
+#include <iostream>
+
+void fnEngine()
+{
+	std::cout << "engine connected" << std::endl;
+}
+
+namespace nu
+{
+	bool Engine::Initialize(float width, float height) {
+		m_renderer.Initialize("Game Engine", width, height);
+		m_input.Initialize();
+		m_audio.Initialize();
+		m_particleSystem.Initialize();
+		fnEngine();
+
+		return true;
+	}
+
+	void Engine::Shutdown() {
+		m_input.Shutdown();
+		m_particleSystem.Shutdown();
+		m_renderer.Shutdown();
+	}
+
+	void Engine::Update() {
+		m_time.Tick();
+		m_audio.Update();
+		m_input.Update();
+		m_particleSystem.Update(m_time.GetDeltaTime());
+	}
+}
