@@ -180,8 +180,8 @@ void SpaceGame::SpawnEnemy() {
     enemyDesc.model = assets::enemyModel;
     // only spawn enemies on the edges of the screen to reduce the risk of spawning on top of the player
     enemyDesc.transform = Transform{ 
-        Vector2{ RandomInt(0, 1) == 0 ? RandomFloat(0, winWidth / 4) : RandomFloat(winWidth * (2/4), winWidth)
-        , RandomInt(0, 1) == 0 ? RandomFloat(0, winHeight / 4) : RandomFloat(winHeight * (3 / 4), winHeight), }
+        Vector2{ RandomInt(0, 1) == 0 ? RandomFloat(0, winWidth / 4.0f) : RandomFloat(winWidth * (0.5f), winWidth)
+        , RandomInt(0, 1) == 0 ? RandomFloat(0, winHeight / 4.0f) : RandomFloat(winHeight * (0.75f), winHeight), }
         , 0.0f, 5.0f};
     enemyDesc.velocity = { 0.0f, 0.0f };
     enemyDesc.speed = 600.0f;

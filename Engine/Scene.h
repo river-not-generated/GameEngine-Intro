@@ -41,5 +41,6 @@ namespace nu
 			T* actorT = dynamic_cast<T*>(actor.get());
 			if (actorT && actorT->m_name == name) return actorT;
 		}
+		return nullptr;
 	}
 }

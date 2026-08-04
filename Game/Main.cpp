@@ -53,7 +53,26 @@ int main()
         std::cout << objectA.get() << std::endl;
         std::unique_ptr<Object> objectB;
         objectB = std::move(objectA);
+        std::cout << objectB.get() << std::endl;
+
+        objectB.reset();
     }
+
+    std::cout << "=============== shared pointers =================\n";
+    shared_ptr<Object> objectC;
+    {
+        shared_ptr<Object> objectA = std::make_shared<Object>();
+        std::cout << objectA.get() << std::endl;
+        std::cout << objectA.use_count() << std::endl;
+        auto objectB = objectA;
+        std::cout << objectB.get() << std::endl;
+        std::cout << objectB.use_count() << std::endl;
+        objectC = objectA;
+        std::cout << objectC.get() << std::endl;
+        std::cout << objectC.use_count() << std::endl;
+    }
+    std::cout << objectC.use_count() << std::endl;
+
 
 
     // initialize the engine
@@ -63,6 +82,11 @@ int main()
     SpaceGame game;
 
     game.Initialize();
+
+    // create texture, using shared_ptr so texture can be shared
+    std::shared_ptr<Texture> texture = std::make_shared<Texture>();
+    texture->Load("textures/grimmothy.png", Engine::Get().GetRenderer() );
+
 
     // -----------------
     // --- MAIN LOOP ---
@@ -97,6 +121,10 @@ int main()
         Engine::Get().GetRenderer().Clear(); // Clear the renderer
 
         game.Draw(Engine::Get().GetRenderer());
+
+
+        Engine::Get().GetRenderer().DrawTexture(texture.get(), 30, 30);
+
 
         Engine::Get().GetPS().Draw(Engine::Get().GetRenderer());
 

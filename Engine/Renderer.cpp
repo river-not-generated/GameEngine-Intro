@@ -4,6 +4,7 @@
 #include "Transform.h"
 #include "Model.h"
 #include "MathUtils.h"
+#include "Texture.h"
 
 #include <iostream>
 
@@ -13,7 +14,7 @@ namespace nu
     {
         SDL_Init(SDL_INIT_VIDEO);
 
-        m_window = SDL_CreateWindow(name, width, height, (fullscreen ? SDL_WINDOW_FULLSCREEN : 0));
+        m_window = SDL_CreateWindow(name, (int) width, (int) height, (fullscreen ? SDL_WINDOW_FULLSCREEN : 0));
         if (m_window == nullptr) {
             std::cerr << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
             SDL_Quit();
@@ -50,13 +51,9 @@ namespace nu
     }
 
 
-    void Renderer::SetColour(Uint8 r, Uint8 g, Uint8 b, Uint8 a) const
+    void Renderer::SetColour(float r, float g, float b, float a) const
     {
-        SDL_SetRenderDrawColor(m_renderer, r, g, b, a);
-    }
-
-    void Renderer::SetColourFloat(float r, float g, float b, float a) const {
-        SDL_SetRenderDrawColorFloat(m_renderer, r, g, b, a);
+        SDL_SetRenderDrawColor(m_renderer, (Uint8) r, (Uint8) g, (Uint8) b, (Uint8) a);
     }
 
     void Renderer::SetColour(const SDL_Color& colour) const {
@@ -64,11 +61,7 @@ namespace nu
     }
 
     void Renderer::SetColourRandom() const {
-        SetColour(RandomInt(256), RandomInt(256), RandomInt(256));
-    }
-
-    void Renderer::SetColourRandomFloat() const {
-        SetColourFloat(RandomFloat(255), RandomFloat(255), RandomFloat(255));
+        SetColour((float)RandomInt(256), (float)RandomInt(256), (float)RandomInt(256));
     }
 
     void Renderer::DrawPoint(float x, float y) const {
@@ -121,6 +114,21 @@ namespace nu
             }
         }
     }
+
+
+    void Renderer::DrawTexture(Texture* texture, float x, float y)
+    {
+        Vector2 size = texture->GetSize();
+
+        SDL_FRect destRect;
+        destRect.x = x;
+        destRect.y = y;
+        destRect.w = texture->GetSize().x;
+        destRect.h = texture->GetSize().y;
+
+        SDL_RenderTexture(m_renderer, texture->m_texture, NULL, &destRect);
+    }
+
 
     void Renderer::DrawDebugText(float x, float y, const char* text) const
     {

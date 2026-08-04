@@ -42,7 +42,7 @@ namespace assets {
         },
         Colour{ 255, 200, 0 }
     );
-    Model playerModel = std::vector<Mesh>{ playerBody, playerWing1, playerWing2, playerFlame };
+    std::shared_ptr<Model> playerModel = std::make_shared<Model>(std::vector<Mesh>{ playerBody, playerWing1, playerWing2, playerFlame });
 
 
     Mesh bulletMesh {
@@ -55,7 +55,7 @@ namespace assets {
         Colour { 100, 225, 255 }
     };
 
-    Model bulletModel{ std::vector<Mesh>{bulletMesh} };
+    std::shared_ptr<Model> bulletModel = std::make_shared<Model>(std::vector<Mesh>{bulletMesh});
 
 
     Mesh enemyMesh{
@@ -72,7 +72,7 @@ namespace assets {
         Colour {255, 100, 0}
     };
 
-    Model enemyModel{ std::vector<Mesh>{enemyMesh} };
+    std::shared_ptr<Model> enemyModel = std::make_shared<Model>(std::vector<Mesh>{enemyMesh} );
 
 
     Mesh tripleDiamond{
@@ -97,7 +97,7 @@ namespace assets {
         Colour {0, 230, 150}
     };
 
-    Model tripleShotModel{ {tripleDiamond, bulletIcon} };
+    std::shared_ptr<Model> tripleShotModel = std::make_shared<Model>(std::vector<Mesh>{tripleDiamond, bulletIcon} );
 
     Mesh heartDiamond{
     {
@@ -125,5 +125,5 @@ namespace assets {
         Colour {255, 100, 150}
     };
 
-    Model heartModel{ {heartDiamond, heartIcon} };
+    std::shared_ptr<Model> heartModel = std::make_shared<Model>(std::vector<Mesh>{heartDiamond, heartIcon} );
 }

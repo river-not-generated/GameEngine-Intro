@@ -2,6 +2,7 @@
 
 #include "SDL3/SDL.h"
 #include "SDL3_ttf/SDL_ttf.h"
+#include "SDL3_image/SDL_image.h"
 
 namespace nu
 {
@@ -15,11 +16,9 @@ namespace nu
 		float GetWindowWidth() { return m_width; }
 		float GetWindowHeight() { return m_height; }
 
-		void SetColour(Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255) const;
-		void SetColourFloat(float r, float g, float b, float a = 1) const;
+		void SetColour(float r, float g, float b, float a = 255.0f) const;
 		void SetColour(const SDL_Color& colour) const;
 		void SetColourRandom() const;
-		void SetColourRandomFloat() const;
 
 		void DrawPoint(float x, float y) const;
 		void DrawFillRect(float x, float y, float width, float height) const;
@@ -30,6 +29,8 @@ namespace nu
 
 		void DrawModel(const class Model& model, const struct Transform& trans) const;
 
+		void DrawTexture(class Texture* texture, float x, float y);
+
 		void DrawDebugText(float x, float y, const char* text) const;
 
 		void Delay(int ms);
@@ -37,6 +38,7 @@ namespace nu
 		void Shutdown();
 
 		friend class Text;
+		friend class Texture;
 
 	private:
 		SDL_Window* m_window = nullptr;

@@ -6,6 +6,7 @@
 #include "Transform.h"
 
 #include "Text.h"
+#include "Texture.h"
 
 #include "Renderer.h"
 #include "Input.h"
