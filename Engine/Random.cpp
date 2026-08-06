@@ -5,8 +5,20 @@
 
 namespace nu
 {
+	std::mt19937& Generator() {
+		static std::random_device randomDevice;
+		static std::mt19937 generator(randomDevice());
+
+		return generator;
+	}
+
+	void SeedRandom(unsigned int seed) {
+		Generator().seed(seed);
+	}
+
 	int RandomInt() {
-		return rand();
+		static std::uniform_int_distribution<> dist;
+		return dist(Generator());
 	}
 
 	/// <summary>
@@ -15,7 +27,8 @@ namespace nu
 	/// <param name="max">exclusive max value</param>
 	/// <returns></returns>
 	int RandomInt(int max) {
-		return rand() % max;
+		std::uniform_int_distribution<> dist(0, max - 1);
+		return dist(Generator());
 	}
 
 	/// <summary>
@@ -25,18 +38,29 @@ namespace nu
 	/// <param name="max"></param>
 	/// <returns></returns>
 	int RandomInt(int min, int max) {
-		return RandomInt(max + 1 - min) + min;
+		if (min > max) std::swap(min, max);
+		std::uniform_int_distribution<> dist(min, max);
+		return dist(Generator());
 	}
 
 	float RandomFloat() {
-		return rand() / (float) RAND_MAX;
+		static std::uniform_real_distribution<> distFloat(0.0f, 1.0f);
+		return distFloat(Generator());
 	}
 
 	float RandomFloat(float max) {
-		return RandomFloat() * max;
+		std::uniform_real_distribution<> distFloat(0.0f, max);
+		return distFloat(Generator());
 	}
 
 	float RandomFloat(float min, float max) {
-		return min + RandomFloat() * (max - min);
+		if (min > max) std::swap(min, max);
+		std::uniform_real_distribution<> distFloat(min, max);
+		return distFloat(Generator());
+	}
+
+	bool RandomBool() {
+		static std::bernoulli_distribution distBool(0.5f);
+		return distBool(Generator());
 	}
 }

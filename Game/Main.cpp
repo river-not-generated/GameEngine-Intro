@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <vector>
+#include <random>
 
 using namespace nu;
 using namespace std;
@@ -23,8 +24,38 @@ public:
     Object& operator = (const Object& object) { cout << "assignment\n"; return *this; }
 };
 
+uint32_t seed = 1234;
+uint32_t RNG() {
+    seed = (seed * 1103515245) + 12345;
+    return seed;
+}
+
 int main()
 {
+    for (size_t i = 0; i < 10; i++) {
+        std::cout << RNG() << " ";
+    }
+    std::cout << std::endl;
+
+    SeedRandom((unsigned int) time(NULL));
+    for (size_t i = 0; i < 10; i++) {
+        std::cout << rand() << " ";
+    }
+    std::cout << std::endl;
+
+
+    std::random_device randomDevice;
+    std::cout << "min " << randomDevice.min() << endl;
+    std::cout << "max " << randomDevice.max() << endl;
+    std::cout << "entropy " << randomDevice.entropy() << endl;
+
+    std::mt19937 generator(randomDevice());
+    std::uniform_int_distribution<> dist(0, 20);
+
+    for (size_t i = 0; i < 10; i++) {
+        std::cout << dist(generator) << " ";
+    }
+
     std::cout << "=================== object =====================\n";
     {
         Object objectA;
@@ -72,7 +103,6 @@ int main()
         std::cout << objectC.use_count() << std::endl;
     }
     std::cout << objectC.use_count() << std::endl;
-
 
 
     // initialize the engine
