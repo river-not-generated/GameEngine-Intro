@@ -2,12 +2,14 @@
 
 #include "Transform.h"
 #include "Model.h"
+#include "Resource.h"
 
 #include <string>
 #include <memory>
 
 namespace nu {
     class Scene;
+    class Texture;
 
     struct ActorDesc {
         std::string name;
@@ -15,16 +17,23 @@ namespace nu {
         Transform transform;
         Vector2 velocity{ 0.0f, 0.0f };
         float damping = 0.0f;
-        std::shared_ptr<Model> model;
+        res_t<Model> model;
+        res_t<Texture> sprite;
         float lifespan = 0.0f;
     };
 
     class Actor {
     public:
         Actor() = default;
-        Actor(const ActorDesc& actorDesc) : m_name{actorDesc.name}, m_tag{actorDesc.tag}
-            , m_transform{ actorDesc.transform }, m_velocity{ actorDesc.velocity }, m_damping{ actorDesc.damping }, 
-            m_model { actorDesc.model }, m_lifespan{ actorDesc.lifespan } {
+        Actor(const ActorDesc& actorDesc) : 
+            m_name{actorDesc.name}
+            , m_tag{actorDesc.tag}
+            , m_transform{ actorDesc.transform }
+            , m_velocity{ actorDesc.velocity }
+            , m_damping{ actorDesc.damping }
+            , m_model{ actorDesc.model }
+            , m_sprite{ actorDesc.sprite }
+            , m_lifespan{ actorDesc.lifespan } {
         }
 
         virtual void Update(float dt);
@@ -66,7 +75,7 @@ namespace nu {
 
         Scene* GetScene() const { return m_scene; };
 
-        float GetRadius(float error = 0.1f) const;
+        float GetRadius(float error = 0.5f) const;
         void SetModel(std::shared_ptr<Model> model) { m_model = model; }
 
         friend Scene;
@@ -80,7 +89,8 @@ namespace nu {
         float m_lifespan = 0.0f;
         bool m_destroyed = false;
 
-        std::shared_ptr<Model> m_model;
+        res_t<Model> m_model;
+        res_t<Texture> m_sprite;
         Scene* m_scene = nullptr;
     };
 }

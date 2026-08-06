@@ -30,12 +30,13 @@ bool SpaceGame::Initialize() {
     Engine::Get().GetAudio().AddSound("thrust", "audio/sndThrust.mp3");
 
     // FONTS
-    m_fonts["big"] = Resources().Get<Font>("fonts/bytesized.ttf", 64);
-    m_fonts["regular"] = Resources().Get<Font>("fonts/tiny5.ttf", 48);
-    m_fonts["medium"] = Resources().Get<Font>("fonts/tiny5.ttf", 32);
+    m_fonts["big"] = Resources().GetWithID<Font>("title-font", "fonts/bytesized.ttf", 64.0f);
+    m_fonts["regular"] = Resources().GetWithID<Font>("regular-font", "fonts/tiny5.ttf", 32.0f);
+    m_fonts["medium"] = Resources().GetWithID<Font>("medium-font", "fonts/tiny5.ttf", 48.0f);
 
-    // Resources().Get<Font>("fonts/bytesized.ttf", 64);
-
+    // because of the amount of times I reuse fonts I didn't want to have to call the full resource manager thing every time
+    // as that's just asking for inconsistencies
+    // therefore maps
     // TITLE SCREEN TEXT
     m_text["title"] = new Text(m_fonts["big"]);
     m_text["title"]->Create(renderer, "Another Space Game", Colour{255,255,255});
@@ -162,8 +163,9 @@ void SpaceGame::SpawnPlayer() {
     PlayerDesc playerDesc;
     playerDesc.name = "Player";
     playerDesc.tag = "Player";
-    playerDesc.model = assets::playerModel;
-    playerDesc.transform = Transform{ Vector2{ Engine::Get().GetRenderer().GetWindowWidth() / 2, Engine::Get().GetRenderer().GetWindowHeight() / 2}, 0.0f, 5.0f };
+    // playerDesc.model = assets::playerModel;
+    playerDesc.sprite = Resources().Get<Texture>("textures/player.png", Engine::Get().GetRenderer());
+    playerDesc.transform = Transform{ Vector2{ Engine::Get().GetRenderer().GetWindowWidth() / 2, Engine::Get().GetRenderer().GetWindowHeight() / 2}, 0.0f, 0.5f };
     playerDesc.velocity = { 0.0f, 0.0f };
     playerDesc.speed = 800.0f;
     playerDesc.damping = 0.7f;
@@ -178,12 +180,13 @@ void SpaceGame::SpawnEnemy() {
     EnemyDesc enemyDesc;
     enemyDesc.name = "Enemy";
     enemyDesc.tag = "Enemy";
-    enemyDesc.model = assets::enemyModel;
+    //enemyDesc.model = assets::enemyModel;
+    enemyDesc.sprite = Resources().Get<Texture>("textures/enemy.png", Engine::Get().GetRenderer());
     // only spawn enemies on the edges of the screen to reduce the risk of spawning on top of the player
     enemyDesc.transform = Transform{ 
         Vector2{ RandomInt(0, 1) == 0 ? RandomFloat(0, winWidth / 4.0f) : RandomFloat(winWidth * (0.5f), winWidth)
         , RandomInt(0, 1) == 0 ? RandomFloat(0, winHeight / 4.0f) : RandomFloat(winHeight * (0.75f), winHeight), }
-        , 0.0f, 5.0f};
+        , 0.0f, 0.75f};
     enemyDesc.velocity = { 0.0f, 0.0f };
     enemyDesc.speed = 600.0f;
     enemyDesc.damping = 0.5f;

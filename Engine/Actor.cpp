@@ -3,6 +3,7 @@
 #include "Renderer.h"
 #include "MathUtils.h"
 #include "Engine.h"
+#include "Texture.h"
 
 namespace nu
 {
@@ -24,10 +25,18 @@ namespace nu
         if (m_model) {
             renderer.DrawModel(*m_model, m_transform);
         }
+        if (m_sprite) {
+            renderer.DrawTexture(*m_sprite, m_transform);
+        }
     }
 
     //
     float Actor::GetRadius(float error) const {
-        return m_model->GetRadius() * m_transform.scale * (1.0f - error);
+        if (m_model) 
+            return m_model->GetRadius() * m_transform.scale * (1.0f - error);
+        if (m_sprite)
+            return m_sprite->GetSize().Length() * 0.5f * (1.0f - error);
+         
+        return 0.0f;
     }
 }
