@@ -1,6 +1,7 @@
 #pragma once
 #include "Game.h"
 #include "Text.h"
+#include "ResourceManager.h"
 #include <map>
 
 class SpaceGame : public nu::Game
@@ -46,7 +47,7 @@ private:
 	float m_stateTimer = 0.0f;
 	float m_powerupSpawnTime = 0.0f;
 
-	std::map<std::string, nu::Font*> m_fonts;
+	std::map<std::string, nu::res_t<nu::Font>> m_fonts;
 	std::map<std::string, nu::Text*> m_text;
 
 	GameState m_gamestate = GameState::Title;

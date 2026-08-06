@@ -5,6 +5,8 @@
 #include "Powerup.h"
 #include "Assets.h"
 
+#include <memory>
+
 using namespace nu;
 
 bool SpaceGame::Initialize() {
@@ -28,12 +30,11 @@ bool SpaceGame::Initialize() {
     Engine::Get().GetAudio().AddSound("thrust", "audio/sndThrust.mp3");
 
     // FONTS
-    m_fonts["big"] = new Font();
-    m_fonts["big"]->Load("fonts/bytesized.ttf", 64);
-    m_fonts["regular"] = new Font();
-    m_fonts["regular"]->Load("fonts/tiny5.ttf", 32);
-    m_fonts["medium"] = new Font();
-    m_fonts["medium"]->Load("fonts/tiny5.ttf", 48);
+    m_fonts["big"] = Resources().Get<Font>("fonts/bytesized.ttf", 64);
+    m_fonts["regular"] = Resources().Get<Font>("fonts/tiny5.ttf", 48);
+    m_fonts["medium"] = Resources().Get<Font>("fonts/tiny5.ttf", 32);
+
+    // Resources().Get<Font>("fonts/bytesized.ttf", 64);
 
     // TITLE SCREEN TEXT
     m_text["title"] = new Text(m_fonts["big"]);

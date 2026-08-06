@@ -14,7 +14,7 @@ namespace nu
     {
         SDL_Init(SDL_INIT_VIDEO);
 
-        m_window = SDL_CreateWindow(name, (int) width, (int) height, (fullscreen ? SDL_WINDOW_FULLSCREEN : 0));
+        m_window = SDL_CreateWindow(name, (int)width, (int)height, (fullscreen ? SDL_WINDOW_FULLSCREEN : 0));
         if (m_window == nullptr) {
             std::cerr << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
             SDL_Quit();
@@ -53,7 +53,7 @@ namespace nu
 
     void Renderer::SetColour(float r, float g, float b, float a) const
     {
-        SDL_SetRenderDrawColor(m_renderer, (Uint8) r, (Uint8) g, (Uint8) b, (Uint8) a);
+        SDL_SetRenderDrawColor(m_renderer, (Uint8)r, (Uint8)g, (Uint8)b, (Uint8)a);
     }
 
     void Renderer::SetColour(const SDL_Color& colour) const {
@@ -116,17 +116,30 @@ namespace nu
     }
 
 
-    void Renderer::DrawTexture(Texture* texture, float x, float y)
+    void Renderer::DrawTexture(const Texture& texture, float x, float y, float angle, float scale, bool flipH)
     {
-        Vector2 size = texture->GetSize();
+        Vector2 size = texture.GetSize();
 
         SDL_FRect destRect;
         destRect.x = x;
         destRect.y = y;
-        destRect.w = texture->GetSize().x;
-        destRect.h = texture->GetSize().y;
+        destRect.w = size.x * scale;
+        destRect.h = size.y * scale;
 
-        SDL_RenderTexture(m_renderer, texture->m_texture, NULL, &destRect);
+        SDL_RenderTextureRotated(m_renderer, texture.m_texture, NULL, &destRect, angle, NULL, (flipH ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE));
+    }
+
+    void Renderer::DrawTexture(const class Texture& texture, const struct Transform& trans, bool flipH) {
+        Vector2 size = texture.GetSize();
+
+        SDL_FRect destRect;
+        destRect.x = trans.position.x;
+        destRect.y = trans.position.y;
+        destRect.w = size.x * trans.scale;
+        destRect.h = size.y * trans.scale;
+
+
+        SDL_RenderTextureRotated(m_renderer, texture.m_texture, NULL, &destRect, trans.rotation, NULL, (flipH ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE));
     }
 
 
