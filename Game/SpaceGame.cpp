@@ -48,8 +48,6 @@ bool SpaceGame::Initialize() {
     // GAME UI
     m_text["score"] = new Text(m_fonts["regular"]);
     m_text["score"]->Create(renderer, "Score: " + std::to_string(m_score), Colour{ 255,255,255 });
-    m_text["lives"] = new Text(m_fonts["regular"]);
-    m_text["lives"]->Create(renderer, "Lives: " + std::to_string(m_lives), Colour{ 255,255,255 });
     m_text["fire"] = new Text(m_fonts["regular"]);
     m_text["fire"]->Create(renderer, "Space to fire", Colour{ 255,255,255 });
     m_text["dash"] = new Text(m_fonts["regular"]);
@@ -69,14 +67,6 @@ void SpaceGame::Update(float dt) {
     nu::Particle star;
     switch (m_gamestate) {
         case SpaceGame::GameState::Title:
-            // make stars rain down from the top
-            star.position = { RandomFloat(0, Engine::Get().GetRenderer().GetWindowWidth()), 0.0f };
-            star.colour = { 255, 255, 255 };
-            star.lifespan = 5.0f;
-            star.velocity = { 0.0f, nu::RandomFloat(300.0f, 550.0f) };
-
-            nu::Engine::Get().GetPS().AddParticle(star);
-
             if (Engine::Get().GetInput().GetKeyPressed(SDL_SCANCODE_RETURN)) {
                 m_gamestate = GameState::StartGame;
             }
@@ -128,6 +118,7 @@ void SpaceGame::Update(float dt) {
 }
 
 void SpaceGame::Draw(nu::Renderer& renderer) {
+    renderer.DrawTexture(*Resources().Get<Texture>("textures/background.png", renderer), 30.0f, 30.0f);
     Game::Draw(renderer);
     switch (m_gamestate) {
         case SpaceGame::GameState::Title:
@@ -140,10 +131,11 @@ void SpaceGame::Draw(nu::Renderer& renderer) {
         case SpaceGame::GameState::Game:
             m_text["score"]->Create(renderer, "Score: " + std::to_string(m_score), Colour{ 255,255,255 });
             m_text["score"]->Draw(renderer, 50, 50);
-            m_text["lives"]->Create(renderer, "Lives: " + std::to_string(m_lives), Colour{ 255,255,255 });
-            m_text["lives"]->Draw(renderer, Engine::Get().GetRenderer().GetWindowWidth() - 150, 50);
-            m_text["fire"]->Draw(renderer, 50, Engine::Get().GetRenderer().GetWindowHeight() - 100);
-            m_text["dash"]->Draw(renderer, 50, Engine::Get().GetRenderer().GetWindowHeight() - 50);
+            for (int i = 0; i < m_lives; i++) {
+                renderer.DrawTexture(*Resources().Get<Texture>("textures/life.png", renderer), renderer.GetWindowWidth() - 50.0f - (30.0f * i), 40.0f, 0.0f, 1.25f);
+            }
+            m_text["fire"]->Draw(renderer, 50, renderer.GetWindowHeight() - 100);
+            m_text["dash"]->Draw(renderer, 50, renderer.GetWindowHeight() - 50);
             break;
         case SpaceGame::GameState::EndLevel:
             break;
@@ -165,7 +157,7 @@ void SpaceGame::SpawnPlayer() {
     playerDesc.tag = "Player";
     // playerDesc.model = assets::playerModel;
     playerDesc.sprite = Resources().Get<Texture>("textures/player.png", Engine::Get().GetRenderer());
-    playerDesc.transform = Transform{ Vector2{ Engine::Get().GetRenderer().GetWindowWidth() / 2, Engine::Get().GetRenderer().GetWindowHeight() / 2}, 0.0f, 0.5f };
+    playerDesc.transform = Transform{ Vector2{ Engine::Get().GetRenderer().GetWindowWidth() / 2, Engine::Get().GetRenderer().GetWindowHeight() / 2}, 0.0f, 0.75f };
     playerDesc.velocity = { 0.0f, 0.0f };
     playerDesc.speed = 800.0f;
     playerDesc.damping = 0.7f;
@@ -186,7 +178,7 @@ void SpaceGame::SpawnEnemy() {
     enemyDesc.transform = Transform{ 
         Vector2{ RandomInt(0, 1) == 0 ? RandomFloat(0, winWidth / 4.0f) : RandomFloat(winWidth * (0.5f), winWidth)
         , RandomInt(0, 1) == 0 ? RandomFloat(0, winHeight / 4.0f) : RandomFloat(winHeight * (0.75f), winHeight), }
-        , 0.0f, 0.75f};
+        , 0.0f, 1.25f};
     enemyDesc.velocity = { 0.0f, 0.0f };
     enemyDesc.speed = 600.0f;
     enemyDesc.damping = 0.5f;
@@ -200,22 +192,22 @@ void SpaceGame::SpawnPowerup() {
     float winHeight = Engine::Get().GetRenderer().GetWindowHeight();
     PowerupDesc powerupDesc;
     powerupDesc.name = "Powerup";
-    powerupDesc.transform = Transform{ Vector2{RandomFloat(0, winWidth), RandomFloat(0, winHeight)}, 0.0f, 3.0f };
+    powerupDesc.transform = Transform{ Vector2{RandomFloat(0, winWidth), RandomFloat(0, winHeight)}, 0.0f, 1.5f };
     powerupDesc.velocity = { 0.0f, 0.0f };
 
     int num = RandomInt(0, 1);
     switch (num) {
     case 0:
         powerupDesc.tag = "TripleShot";
-        powerupDesc.model = assets::tripleShotModel;
+        powerupDesc.sprite = Resources().Get<Texture>("textures/triple.png", Engine::Get().GetRenderer());
         break;
     case 1:
         powerupDesc.tag = "Heart";
-        powerupDesc.model = assets::heartModel;
+        powerupDesc.sprite = Resources().Get<Texture>("textures/heart.png", Engine::Get().GetRenderer());
         break;
     default:
         powerupDesc.tag = "TripleShot";
-        powerupDesc.model = assets::tripleShotModel;
+        powerupDesc.sprite = Resources().Get<Texture>("textures/triple.png", Engine::Get().GetRenderer());
         break;
     }
 

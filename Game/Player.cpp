@@ -17,7 +17,7 @@ void Player::Update(float dt) {
         thrust = m_speed;
         nu::Particle particle;
         particle.position = m_transform.position;
-        particle.colour = { nu::RandomFloat(150.0f, 255.0f), nu::RandomFloat(150.0f, 220.0f), 0.0f};
+        particle.texture = nu::Resources().Get<nu::Texture>("textures/particle.png", nu::Engine::Get().GetRenderer());
         particle.lifespan = nu::RandomFloat(0.5f, 1.5f);
         particle.velocity = { nu::RandomFloat(-100.0f, 100.0f), nu::RandomFloat(-200.0f, 200.0f) };
 
@@ -41,7 +41,7 @@ void Player::Update(float dt) {
         for (int i = 0; i < 50; i++) {
             nu::Particle particle;
             particle.position = m_transform.position;
-            particle.colour = { nu::RandomFloat(150.0f, 255.0f), nu::RandomFloat(150.0f, 220.0f), 0.0f };
+            particle.texture = nu::Resources().Get<nu::Texture>("textures/particle.png", nu::Engine::Get().GetRenderer());
             particle.lifespan = nu::RandomFloat(0.5f, 1.5f);
             particle.velocity = { nu::RandomFloat(-100.0f, 100.0f), nu::RandomFloat(-200.0f, 200.0f) };
 
@@ -63,7 +63,7 @@ void Player::Update(float dt) {
     // fire bullet
     if (nu::Engine::Get().GetInput().GetKeyPressed(SDL_SCANCODE_SPACE)) {
         for (int i = 0; i < (m_tripleShot ? 3 : 1); i++) {
-            nu::Transform trans = m_transform;
+            nu::Transform trans = {m_transform.position, m_transform.rotation, 1.0f};
             switch (i) {
                 case 1: 
                     trans.rotation += 5.0f;
@@ -103,7 +103,7 @@ void Player::OnCollision(Actor* other) {
         {
             nu::Particle particle;
             particle.position = m_transform.position;
-            particle.colour = { nu::RandomFloat(150.0f, 255.0f), nu::RandomFloat(150.0f, 220.0f), 0.0f };
+            particle.texture = nu::Resources().Get<nu::Texture>("textures/particle.png", nu::Engine::Get().GetRenderer());
             particle.lifespan = nu::RandomFloat(0.5f, 2.0f);
             particle.velocity = { nu::RandomFloat(-600.0f, 600.0f), nu::RandomFloat(-600.0f, 600.0f) };
 

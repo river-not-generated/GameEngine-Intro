@@ -65,10 +65,6 @@ int main()
 
         game.Draw(Engine::Get().GetRenderer());
 
-
-        Engine::Get().GetRenderer().DrawTexture(*Resources().Get<Texture>("textures/grimmothy.png", Engine::Get().GetRenderer()), 30, 30, 45);
-
-
         Engine::Get().GetPS().Draw(Engine::Get().GetRenderer());
 
         Engine::Get().GetRenderer().Present(); // render the screen

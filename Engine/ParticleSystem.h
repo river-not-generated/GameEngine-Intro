@@ -2,6 +2,7 @@
 #include <vector>
 #include "Vector2.h"
 #include "Vector3.h"
+#include "ResourceManager.h"
 
 namespace nu
 {
@@ -12,7 +13,7 @@ namespace nu
 
 		Vector2 position{ 0, 0 };
 		Vector2 velocity{ 0, 0 };
-		Colour colour{ 0, 0, 0 };
+		res_t<class Texture> texture;
 	};
 
 	class ParticleSystem
