@@ -111,6 +111,9 @@
     <ClInclude Include="Object.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
+    <ClInclude Include="Json.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -162,6 +165,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Json.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -15,6 +15,7 @@
 #include "Game.h"
 #include "ParticleSystem.h"
 #include "Factory.h"
+#include "Json.h"
 
 #include "Actor.h"
 #include "Mesh.h"
