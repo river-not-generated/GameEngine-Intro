@@ -3,6 +3,7 @@
 #include "Transform.h"
 #include "Model.h"
 #include "Resource.h"
+#include "Object.h"
 
 #include <string>
 #include <memory>
@@ -22,7 +23,7 @@ namespace nu {
         float lifespan = 0.0f;
     };
 
-    class Actor {
+    class Actor : public Object {
     public:
         Actor() = default;
         Actor(const ActorDesc& actorDesc) : 

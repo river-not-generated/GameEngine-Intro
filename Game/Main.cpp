@@ -15,12 +15,17 @@ using namespace std;
 const float WIN_WIDTH = 1024.0f;
 const float WIN_HEIGHT = 1080.0f;
 
-
 int main()
-{
+{   
+    Factory::Instance().Register<Actor>("Actor");
+    auto actor = Factory::Instance().Create("Actor");
+
+    cout << actor->IsActive() << endl;
+    return 0;
+
     // initialize the engine
-    if (Engine::Get().Initialize(WIN_WIDTH, WIN_HEIGHT) == false) return 0;
     nu::SetWorkingDirectory("assets");
+    if (Engine::Get().Initialize(WIN_WIDTH, WIN_HEIGHT) == false) return 0;
 
     SpaceGame game;
 

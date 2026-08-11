@@ -3,6 +3,7 @@
 #include "Random.h"
 #include "Vector2.h"
 #include "MathUtils.h"
+#include "StringUtils.h"
 #include "Transform.h"
 
 #include "Text.h"
@@ -13,6 +14,7 @@
 #include "GameTime.h"
 #include "Game.h"
 #include "ParticleSystem.h"
+#include "Factory.h"
 
 #include "Actor.h"
 #include "Mesh.h"
