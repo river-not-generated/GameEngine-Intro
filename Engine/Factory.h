@@ -43,7 +43,7 @@ namespace nu
         requires std::derived_from<T, Object>
     inline void Factory::Register(const std::string& name)
     {
-        std::string lowerName = ToLower(lowerName);
+        std::string lowerName = ToLower(name);
         if (m_registry.contains(lowerName)) {
             std::cerr << "Object [" << lowerName << "] already registered" << std::endl;
             return;
@@ -55,7 +55,7 @@ namespace nu
         requires std::derived_from<T, Object>
     inline std::unique_ptr<T> Factory::Create(const std::string& name)
     {
-        std::string lowerName = ToLower(lowerName);
+        std::string lowerName = ToLower(name);
         if (!m_registry.contains(lowerName)) {
             std::cerr << "Object [" << lowerName << "] not registered, cannot create" << std::endl;
             return std::unique_ptr<T>();

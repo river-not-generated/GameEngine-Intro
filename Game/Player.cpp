@@ -124,3 +124,9 @@ void Player::OnCollision(Actor* other) {
         nu::Engine::Get().GetAudio().PlaySound("powerup");
     }
 }
+
+void Player::Read(const nu::json::value_t& value) {
+    Actor::Read(value);
+
+    JSON_READ_NAME(value, "speed", m_speed);
+}

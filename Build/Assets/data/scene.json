@@ -1,0 +1,14 @@
+{
+  "player": {
+    "name": "Charlie",
+    "tag": "Rogue",
+    "active": true,
+    "transform": {
+      "position": [ 30.0, 50.0 ],
+      "rotation": 45.0,
+      "scale": 5.0
+    },
+    "speed": 45
+  }
+
+}

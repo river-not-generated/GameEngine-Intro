@@ -20,10 +20,20 @@ int main()
     nu::SetWorkingDirectory("assets");
 
     Factory::Instance().Register<Actor>("Actor");
-    auto actor = Factory::Instance().Create("Actor");
+
+    auto actor = Factory::Instance().Create<Actor>("Actor");
 
     cout << actor->IsActive() << endl;
 
+    json::document_t document;
+    if (json::Load("data/scene.json", document)) {
+        if (JSON_HAS_NAME(document, "player")) {
+            actor->Read(JSON_GET_NAME(document, "player"));
+            cout << actor->GetName() << endl;
+            cout << actor->GetTag() << endl;
+            cout << actor->GetTransform().rotation << endl;
+        }
+    }
 
     // load the json data from a file
     std::string buffer;

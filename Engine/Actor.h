@@ -12,8 +12,7 @@ namespace nu {
     class Scene;
     class Texture;
 
-    struct ActorDesc {
-        std::string name;
+    struct ActorDesc : public ObjectDesc {
         std::string tag;
         Transform transform;
         Vector2 velocity{ 0.0f, 0.0f };
@@ -27,7 +26,7 @@ namespace nu {
     public:
         Actor() = default;
         Actor(const ActorDesc& actorDesc) : 
-            m_name{actorDesc.name}
+            Object{ actorDesc }
             , m_tag{actorDesc.tag}
             , m_transform{ actorDesc.transform }
             , m_velocity{ actorDesc.velocity }
@@ -79,10 +78,11 @@ namespace nu {
         float GetRadius(float error = 0.5f) const;
         void SetModel(std::shared_ptr<Model> model) { m_model = model; }
 
+        virtual void Read(const json::value_t& value) override;
+
         friend Scene;
 
     protected:
-        std::string m_name;
         std::string m_tag;
         Transform m_transform;
         Vector2 m_velocity{ 0.0f, 0.0f };
