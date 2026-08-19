@@ -9,12 +9,14 @@
 #include "Text.h"
 #include "Texture.h"
 
+#include "Factory.h"
+#include "ResourceManager.h"
+
 #include "Renderer.h"
 #include "Input.h"
 #include "GameTime.h"
 #include "Game.h"
 #include "ParticleSystem.h"
-#include "Factory.h"
 #include "Json.h"
 
 #include "Actor.h"

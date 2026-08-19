@@ -1,6 +1,9 @@
 #pragma once
 #include <string>
+#include <memory>
 #include "Json.h"
+
+#define CLASS_PROTOTYPE(classname) virtual std::unique_ptr<Object> Clone() const { return std::make_unique<classname>(*this); }
 
 namespace nu
 {
@@ -13,6 +16,8 @@ namespace nu
 		Object() = default;
 		Object(ObjectDesc desc) : m_name{ desc.name } {}
 		virtual ~Object() = default;
+
+		CLASS_PROTOTYPE(Object)
 
 		const std::string& GetName() const { return m_name; }
 		bool IsActive() const { return m_active; }

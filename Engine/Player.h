@@ -12,6 +12,8 @@ class Player : public nu::Actor {
 		Player() = default;
 		Player(const PlayerDesc& playerDesc) : Actor{ playerDesc }, m_speed{ playerDesc.speed } {}
 
+		CLASS_PROTOTYPE(Player)
+
 		void Update(float dt) override;
 		void OnCollision(Actor* other) override;
 
@@ -23,7 +25,6 @@ class Player : public nu::Actor {
 		void Read(const nu::json::value_t& value) override;
 
 	private:
-		int m_ammo = 0;
 		float m_speed = 400.0f;
 		float m_powerupTime = 0.0f;
 		float m_dashCooldown = 0.0f;

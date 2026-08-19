@@ -1,9 +1,15 @@
 #include "pch.h"
 #include "Scene.h"
 #include "Actor.h"
+#include "Factory.h"
+#include "Components/ColliderComponent.h"
+
+#include <iostream>
 
 namespace nu
 {
+	// TODO: Scene::Load
+
 	void Scene::Update(float dt) {
 		for (auto& actor : m_actors) {
 			actor->Update(dt);
@@ -33,8 +39,13 @@ namespace nu
 			for (auto& actorB : m_actors) {
 				if (actorA == actorB || actorA->m_destroyed || actorB->m_destroyed) continue;
 
-				float distance = (actorA->m_transform.position - actorB->m_transform.position).Length();
-				if (distance <= (actorA->GetRadius() + actorB->GetRadius())) {
+				auto colliderA = actorA->GetComponent<ColliderComponent>();
+				auto colliderB = actorB->GetComponent<ColliderComponent>();
+
+				if (!(colliderA && colliderB)) continue;
+
+				// check collision
+				if (colliderA->CheckCollision(*colliderB)) {
 					actorA->OnCollision(actorB.get());
   					actorB->OnCollision(actorA.get());
 				}
@@ -49,5 +60,49 @@ namespace nu
 
 	void Scene::RemoveAllActors() {
 		m_actors.clear();
+	}
+
+	bool Scene::Load(const std::string& sceneName)
+	{
+		json::document_t document;
+		if (json::Load("data/scene.json", document)) {
+			if (JSON_HAS_NAME(document, "actors")) {
+				for (auto& actorValue : JSON_GET_NAME(document, "actors").GetArray()) {
+					// get actor type
+					std::string typeName;
+					JSON_READ_NAME(actorValue, "type", typeName);
+
+					// create actor of type if the type is specified
+					if (typeName.empty()) {
+						std::cerr << "Object present with no specified type, entry skipped" << std::endl;
+					}
+					else {
+						auto actor = Factory::Instance().Create<Actor>(typeName);
+						actor->Read(actorValue);
+
+						// check if prototype
+						bool prototype = false;
+						JSON_READ(actorValue, prototype);
+
+						if (prototype) {
+							// if prototype, add to factory registry
+							std::string name;
+							JSON_READ(actorValue, name);
+							Factory::Instance().RegisterPrototype<Actor>(name, std::move(actor));
+						}
+						else {
+							// otherwise add actor to scene
+							AddActor(std::move(actor));
+						}
+					}
+				}
+			}
+
+		}
+		else {
+			return false;
+		}
+
+		return true;
 	}
 }

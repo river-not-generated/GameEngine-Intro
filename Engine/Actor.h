@@ -4,9 +4,11 @@
 #include "Model.h"
 #include "Resource.h"
 #include "Object.h"
+#include "Framework/Component.h"
 
 #include <string>
 #include <memory>
+#include <vector>
 
 namespace nu {
     class Scene;
@@ -31,10 +33,12 @@ namespace nu {
             , m_transform{ actorDesc.transform }
             , m_velocity{ actorDesc.velocity }
             , m_damping{ actorDesc.damping }
-            , m_model{ actorDesc.model }
-            , m_sprite{ actorDesc.sprite }
             , m_lifespan{ actorDesc.lifespan } {
         }
+
+        Actor(const Actor& other);
+
+        CLASS_PROTOTYPE(Actor)
 
         virtual void Update(float dt);
 
@@ -66,6 +70,12 @@ namespace nu {
             m_transform.scale = scale;
         }
 
+        void SetTag(const std::string& tag) { m_tag = tag; }
+
+        void SetTransform(const Transform& transform) {
+            m_transform = transform;
+        }
+
         const std::string& GetName() const { return m_name; }
         const std::string& GetTag() const { return m_tag; }
 
@@ -76,9 +86,13 @@ namespace nu {
         Scene* GetScene() const { return m_scene; };
 
         float GetRadius(float error = 0.5f) const;
-        void SetModel(std::shared_ptr<Model> model) { m_model = model; }
 
         virtual void Read(const json::value_t& value) override;
+
+        void AddComponent(std::unique_ptr<Component> component);
+
+        template <std::derived_from<Component> T>
+        T* GetComponent();
 
         friend Scene;
 
@@ -90,8 +104,17 @@ namespace nu {
         float m_lifespan = 0.0f;
         bool m_destroyed = false;
 
-        res_t<Model> m_model;
-        res_t<Texture> m_sprite;
+        std::vector<std::unique_ptr<Component>> m_components;
+
         Scene* m_scene = nullptr;
     };
+
+    template <std::derived_from<Component> T>
+    inline T* Actor::GetComponent() {
+        for (auto& component : m_components) {
+            auto result = dynamic_cast<T*>(component.get());
+            if (result) return result;
+        }
+        return nullptr;
+    }
 }

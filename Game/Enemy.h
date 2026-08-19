@@ -8,6 +8,8 @@ struct EnemyDesc : public nu::ActorDesc {
 
 class Enemy : public nu::Actor {
 public:
+	CLASS_PROTOTYPE(Enemy)
+
 	Enemy() = default;
 	Enemy(const EnemyDesc& enemyDesc) : Actor{ enemyDesc }, m_speed{ enemyDesc.speed } {}
 
@@ -16,7 +18,9 @@ public:
 
 	float GetSpeed() { return m_speed; }
 
+	void Read(const nu::json::value_t& value) override;
+
+
 private:
-	int m_ammo = 0;
 	float m_speed = 400.0f;
 };

@@ -19,64 +19,6 @@ int main()
 {   
     nu::SetWorkingDirectory("assets");
 
-    Factory::Instance().Register<Actor>("Actor");
-
-    auto actor = Factory::Instance().Create<Actor>("Actor");
-
-    cout << actor->IsActive() << endl;
-
-    json::document_t document;
-    if (json::Load("data/scene.json", document)) {
-        if (JSON_HAS_NAME(document, "player")) {
-            actor->Read(JSON_GET_NAME(document, "player"));
-            cout << actor->GetName() << endl;
-            cout << actor->GetTag() << endl;
-            cout << actor->GetTransform().rotation << endl;
-        }
-    }
-
-    // load the json data from a file
-    std::string buffer;
-    if (ReadTextFile("data/data.json", buffer))
-    {
-        // show the contents of the json file (debug)
-        std::cout << buffer << std::endl;
-
-        // create json document from the json file contents
-        rapidjson::Document document;
-        if (json::Load("data/data.json", document))
-        {
-            // read the age data (int) from the json
-            int age;
-            JSON_READ(document, age);
-            // show the age data
-            std::cout << age << std::endl;
-        }
-
-        // read/show the data from the json file
-        std::string name;
-        int age;
-        float speed;
-        bool isAwake;
-        Vector2 position;
-        Vector3 colour;
-
-        // read the json data
-        JSON_READ(document, name);
-        JSON_READ(document, age);
-        JSON_READ(document, speed);
-        JSON_READ(document, isAwake);
-        JSON_READ(document, position);
-        JSON_READ(document, colour);
-
-        // show the data
-        std::cout << name << " " << age << " " << speed << " " << isAwake << std::endl;
-        std::cout << position.x << " " << position.y << std::endl;
-        std::cout << colour.r << " " << colour.g << " " << colour.b << " " << std::endl;
-
-    }
-    return 0;
-
     // initialize the engine
     if (Engine::Get().Initialize(WIN_WIDTH, WIN_HEIGHT) == false) return 0;
 

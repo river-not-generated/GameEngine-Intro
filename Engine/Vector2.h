@@ -116,6 +116,8 @@ namespace nu
 			return std::sqrt(LengthSqr());
 		}
 
+		float Distance(const Vector2& v) const { return (v - *this).Length(); }
+
 		// convert to unit vector
 		Vector2 Normalized() const {
 			return *this / Length();

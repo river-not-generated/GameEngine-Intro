@@ -14,6 +14,9 @@ bool SpaceGame::Initialize() {
 
     m_scene = new Scene();
     m_scene->SetGame(this);
+    m_scene->Load("data/scene.json");
+
+
 
     // i'm tired of typing out the whole thing
     auto renderer = Engine::Get().GetRenderer();
@@ -152,39 +155,21 @@ void SpaceGame::Draw(nu::Renderer& renderer) {
 }
 
 void SpaceGame::SpawnPlayer() {
-    PlayerDesc playerDesc;
-    playerDesc.name = "Player";
-    playerDesc.tag = "Player";
-    // playerDesc.model = assets::playerModel;
-    playerDesc.sprite = Resources().Get<Texture>("textures/player.png", Engine::Get().GetRenderer());
-    playerDesc.transform = Transform{ Vector2{ Engine::Get().GetRenderer().GetWindowWidth() / 2, Engine::Get().GetRenderer().GetWindowHeight() / 2}, 0.0f, 0.75f };
-    playerDesc.velocity = { 0.0f, 0.0f };
-    playerDesc.speed = 800.0f;
-    playerDesc.damping = 0.7f;
-
-    std::unique_ptr<Player> player = std::make_unique<Player>(playerDesc);
-    m_scene->AddActor(std::move(player));
+    auto actor = Factory::Instance().Create<Actor>("PlayerPrototype");
+    actor->SetPosition(Vector2{ Engine::Get().GetRenderer().GetWindowWidth() / 2, Engine::Get().GetRenderer().GetWindowHeight() / 2 });
+    m_scene->AddActor(std::move(actor));
 }
 
 void SpaceGame::SpawnEnemy() {
     float winWidth = Engine::Get().GetRenderer().GetWindowWidth();
     float winHeight = Engine::Get().GetRenderer().GetWindowHeight();
-    EnemyDesc enemyDesc;
-    enemyDesc.name = "Enemy";
-    enemyDesc.tag = "Enemy";
-    //enemyDesc.model = assets::enemyModel;
-    enemyDesc.sprite = Resources().Get<Texture>("textures/enemy.png", Engine::Get().GetRenderer());
-    // only spawn enemies on the edges of the screen to reduce the risk of spawning on top of the player
-    enemyDesc.transform = Transform{ 
+
+    auto actor = Factory::Instance().Create<Actor>("EnemyPrototype");
+    actor->SetPosition(
         Vector2{ RandomInt(0, 1) == 0 ? RandomFloat(0, winWidth / 4.0f) : RandomFloat(winWidth * (0.5f), winWidth)
         , RandomInt(0, 1) == 0 ? RandomFloat(0, winHeight / 4.0f) : RandomFloat(winHeight * (0.75f), winHeight), }
-        , 0.0f, 1.25f};
-    enemyDesc.velocity = { 0.0f, 0.0f };
-    enemyDesc.speed = 600.0f;
-    enemyDesc.damping = 0.5f;
-
-    std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(enemyDesc);
-    m_scene->AddActor(std::move(enemy));
+    );
+    m_scene->AddActor(std::move(actor));
 }
 
 void SpaceGame::SpawnPowerup() {

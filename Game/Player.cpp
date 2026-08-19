@@ -4,8 +4,11 @@
 #include "Bullet.h"
 #include "Assets.h"
 #include "SpaceGame.h"
+#include "Factory.h"
 
 #include <iostream>
+
+FACTORY_REGISTER(Player)
 
 void Player::Update(float dt) {
 
@@ -72,17 +75,10 @@ void Player::Update(float dt) {
                     trans.rotation -= 5.0f;
                     break;
             }
-            BulletDesc desc;
-            desc.name = "Bullet";
-            desc.tag = "PlayerBullet";
-            // desc.model = assets::bulletModel;
-            desc.sprite = nu::Resources().Get<nu::Texture>("textures/bullet.png", nu::Engine::Get().GetRenderer());
-            desc.transform = trans;
-            desc.speed = 2000.0f;
-            desc.damping = 0.5f;
-            desc.lifespan = 1.0f;
+            auto bullet = nu::Factory::Instance().Create<Bullet>("BulletPrototype");
+            bullet->SetPosition(m_transform.position);
+            bullet->SetRotation(m_transform.rotation);
 
-            std::unique_ptr<Bullet> bullet = std::make_unique<Bullet>(desc);
             m_scene->AddActor(std::move(bullet));
         }
         nu::Engine::Get().GetAudio().PlaySound("fire");

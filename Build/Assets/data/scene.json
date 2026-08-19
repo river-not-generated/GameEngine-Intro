@@ -1,14 +1,80 @@
 {
-  "player": {
-    "name": "Charlie",
-    "tag": "Rogue",
-    "active": true,
-    "transform": {
-      "position": [ 30.0, 50.0 ],
-      "rotation": 45.0,
-      "scale": 5.0
+  "actors": [
+    {
+      "type": "Player",
+      "prototype": true,
+      "name": "PlayerPrototype",
+      "tag": "Player",
+      "active": true,
+      "speed": 800.0,
+      "damping": 0.7,
+      "transform": {
+        "position": [ 640.0, 512.0 ],
+        "rotation": 0.0,
+        "scale": 0.75
+      },
+      "components": [
+        {
+          "type": "SpriteRendererComponent",
+          "texture": "textures/player.png"
+        },
+        {
+          "type": "CircleColliderComponent",
+          "radius": 10.0
+        }
+      ]
     },
-    "speed": 45
-  }
 
+    {
+      "type": "Enemy",
+      "prototype": true,
+      "name": "EnemyPrototype",
+      "tag": "Enemy",
+      "active": true,
+      "speed": 600.0,
+      "damping": 0.7,
+      "transform": {
+        "position": [ 640.0, 512.0 ],
+        "rotation": 90.0,
+        "scale": 1
+      },
+      "components": [
+        {
+          "type": "SpriteRendererComponent",
+          "texture": "textures/enemy.png"
+        },
+        {
+          "type": "CircleColliderComponent",
+          "radius": 20.0
+        }
+      ]
+    },
+
+    {
+      "type": "Bullet",
+      "prototype": true,
+      "name": "BulletPrototype",
+      "tag": "Bullet",
+      "active": true,
+      "life": 1.0,
+      "speed": 2000.0,
+      "transform": {
+        "position": [ 640.0, 512.0 ],
+        "rotation": 0,
+        "scale": 1.5
+      },
+      "components": [
+        {
+          "type": "SpriteRendererComponent",
+          "texture": "textures/bullet.png"
+        },
+        {
+          "type": "CircleColliderComponent",
+          "radius": 10.0
+        }
+      ]
+    }
+
+
+  ]
 }
