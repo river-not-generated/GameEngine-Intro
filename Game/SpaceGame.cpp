@@ -16,14 +16,11 @@ bool SpaceGame::Initialize() {
     m_scene->SetGame(this);
     m_scene->Load("data/scene.json");
 
-
-
     // i'm tired of typing out the whole thing
     auto renderer = Engine::Get().GetRenderer();
 
     // AUDIO
     Engine::Get().GetAudio().AddSound("bell", "audio/cowbell.wav");
-    Engine::Get().GetAudio().PlaySound("bell");
     Engine::Get().GetAudio().AddSound("hurt", "audio/sndHurt.mp3");
     Engine::Get().GetAudio().AddSound("death", "audio/sndDeath.mp3");
     Engine::Get().GetAudio().AddSound("fire", "audio/sndFire.mp3");
@@ -59,9 +56,11 @@ bool SpaceGame::Initialize() {
 
     // GAME OVER SCREEN TEXT
     m_text["gameover"] = new Text(m_fonts["big"]);
-    m_text["gameover"]->Create(Engine::Get().GetRenderer(), "Game Over", Colour{ 255,255,255 });
+    m_text["gameover"]->Create(renderer, "Game Over", Colour{ 255,255,255 });
     m_text["finalscore"] = new Text(m_fonts["regular"]);
     m_text["finalscore"]->Create(renderer, "Final Score: " + std::to_string(m_score), Colour{ 255,255,255 });
+
+    Engine::Get().GetAudio().PlaySound("bell");
 
     return true;
 }
@@ -175,30 +174,18 @@ void SpaceGame::SpawnEnemy() {
 void SpaceGame::SpawnPowerup() {
     float winWidth = Engine::Get().GetRenderer().GetWindowWidth();
     float winHeight = Engine::Get().GetRenderer().GetWindowHeight();
-    PowerupDesc powerupDesc;
-    powerupDesc.name = "Powerup";
-    powerupDesc.transform = Transform{ Vector2{RandomFloat(0, winWidth), RandomFloat(0, winHeight)}, 0.0f, 1.5f };
-    powerupDesc.velocity = { 0.0f, 0.0f };
 
     int num = RandomInt(0, 1);
-    switch (num) {
-    case 0:
-        powerupDesc.tag = "TripleShot";
-        powerupDesc.sprite = Resources().Get<Texture>("textures/triple.png", Engine::Get().GetRenderer());
-        break;
-    case 1:
-        powerupDesc.tag = "Heart";
-        powerupDesc.sprite = Resources().Get<Texture>("textures/heart.png", Engine::Get().GetRenderer());
-        break;
-    default:
-        powerupDesc.tag = "TripleShot";
-        powerupDesc.sprite = Resources().Get<Texture>("textures/triple.png", Engine::Get().GetRenderer());
-        break;
+    if (num == 0) {
+        auto actor = Factory::Instance().Create<Actor>("TripleshotPrototype");
+        actor->SetPosition(Vector2{ RandomFloat(0, winWidth), RandomFloat(0, winHeight) });
+        m_scene->AddActor(std::move(actor));
     }
-
-
-    std::unique_ptr<Powerup> powerup = std::make_unique<Powerup>(powerupDesc);
-    m_scene->AddActor(std::move(powerup));
+    else {
+        auto actor = Factory::Instance().Create<Actor>("HeartPrototype");
+        actor->SetPosition(Vector2{ RandomFloat(0, winWidth), RandomFloat(0, winHeight) });
+        m_scene->AddActor(std::move(actor));
+    }
 }
 
 void SpaceGame::OnPlayerDead() {

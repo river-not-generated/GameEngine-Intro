@@ -9,7 +9,7 @@
       "speed": 800.0,
       "damping": 0.7,
       "transform": {
-        "position": [ 640.0, 512.0 ],
+        "position": [ 0, 0 ],
         "rotation": 0.0,
         "scale": 0.75
       },
@@ -34,7 +34,7 @@
       "speed": 600.0,
       "damping": 0.7,
       "transform": {
-        "position": [ 640.0, 512.0 ],
+        "position": [ 0, 0 ],
         "rotation": 90.0,
         "scale": 1
       },
@@ -59,7 +59,7 @@
       "life": 1.0,
       "speed": 2000.0,
       "transform": {
-        "position": [ 640.0, 512.0 ],
+        "position": [ 0, 0 ],
         "rotation": 0,
         "scale": 1.5
       },
@@ -70,7 +70,55 @@
         },
         {
           "type": "CircleColliderComponent",
-          "radius": 10.0
+          "radius": 20.0
+        }
+      ]
+    },
+
+    {
+      "type": "Powerup",
+      "prototype": true,
+      "name": "TripleshotPrototype",
+      "tag": "TripleShot",
+      "active": true,
+      "life": 10.0,
+      "transform": {
+        "position": [ 0, 0 ],
+        "rotation": 0,
+        "scale": 1.5
+      },
+      "components": [
+        {
+          "type": "SpriteRendererComponent",
+          "texture": "textures/triple.png"
+        },
+        {
+          "type": "CircleColliderComponent",
+          "radius": 40.0
+        }
+      ]
+    },
+
+    {
+      "type": "Powerup",
+      "prototype": true,
+      "name": "HeartPrototype",
+      "tag": "Heart",
+      "active": true,
+      "life": 10.0,
+      "transform": {
+        "position": [ 0, 0 ],
+        "rotation": 0,
+        "scale": 1.5
+      },
+      "components": [
+        {
+          "type": "SpriteRendererComponent",
+          "texture": "textures/heart.png"
+        },
+        {
+          "type": "CircleColliderComponent",
+          "radius": 40.0
         }
       ]
     }

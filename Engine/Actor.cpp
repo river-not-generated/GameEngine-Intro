@@ -26,9 +26,9 @@ namespace nu
 
     void Actor::Update(float dt) {
         // lifespan
-        if (m_lifespan > 0.0f) {
+        if (m_lifespan > 0.0f && !m_destroyed) {
             m_lifespan -= dt;
-            m_destroyed = (m_lifespan <= 0);
+            m_destroyed = m_lifespan <= 0;
         }
 
         for (auto& c : m_components) {

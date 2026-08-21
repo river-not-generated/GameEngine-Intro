@@ -66,18 +66,18 @@ void Player::Update(float dt) {
     // fire bullet
     if (nu::Engine::Get().GetInput().GetKeyPressed(SDL_SCANCODE_SPACE)) {
         for (int i = 0; i < (m_tripleShot ? 3 : 1); i++) {
-            nu::Transform trans = {m_transform.position, m_transform.rotation, 1.0f};
+            float rotation = m_transform.rotation;
             switch (i) {
                 case 1: 
-                    trans.rotation += 5.0f;
+                    rotation += 5.0f;
                     break;
                 case 2: 
-                    trans.rotation -= 5.0f;
+                    rotation -= 5.0f;
                     break;
             }
             auto bullet = nu::Factory::Instance().Create<Bullet>("BulletPrototype");
             bullet->SetPosition(m_transform.position);
-            bullet->SetRotation(m_transform.rotation);
+            bullet->SetRotation(rotation);
 
             m_scene->AddActor(std::move(bullet));
         }
