@@ -17,6 +17,7 @@
 #include "GameTime.h"
 #include "Game.h"
 #include "ParticleSystem.h"
+#include "Physics/Physics.h"
 #include "Json.h"
 
 #include "Actor.h"
@@ -41,6 +42,8 @@ namespace nu
 			Time& GetTime() { return m_time; }
 			Audio& GetAudio() { return m_audio; }
 			ParticleSystem& GetPS() { return m_particleSystem; }
+			Physics& GetPhysics() { return m_physics; }
+
 
 			Engine(const Engine&) = delete;
 			Engine& operator = (const Engine&) = delete;
@@ -54,6 +57,7 @@ namespace nu
 			Time m_time;
 			Audio m_audio;
 			ParticleSystem m_particleSystem;
+			Physics m_physics;
 	};
 }
 

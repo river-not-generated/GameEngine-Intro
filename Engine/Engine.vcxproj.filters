@@ -31,6 +31,9 @@
     <Filter Include="Header Files\Framework">
       <UniqueIdentifier>{7b1ea394-ce33-49d2-93e5-6127135c14ba}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Physics">
+      <UniqueIdentifier>{9ae0bc0c-d589-4caf-9c53-51f36f1361c8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h">
@@ -135,6 +138,9 @@
     <ClInclude Include="Components\CircleColliderComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
+    <ClInclude Include="Physics\Physics.h">
+      <Filter>Header Files\Physics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -195,6 +201,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Components\CircleColliderComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\Physics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
