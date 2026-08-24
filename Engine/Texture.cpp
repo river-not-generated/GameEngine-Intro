@@ -3,8 +3,6 @@
 #include "Renderer.h"
 #include "Vector2.h"
 
-#include "SDL3_Image/SDL_image.h"
-#include <iostream>
 
 namespace nu
 {

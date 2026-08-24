@@ -1,10 +1,8 @@
 #include "pch.h"
 #include "Text.h"
 
-#include "SDL3_ttf/SDL_ttf.h"
 #include "Renderer.h"
-#include <iostream>
-#include <assert.h>
+
 
 namespace nu
 {

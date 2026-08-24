@@ -6,7 +6,6 @@
 #include "MathUtils.h"
 #include "Texture.h"
 
-#include <iostream>
 
 namespace nu
 {

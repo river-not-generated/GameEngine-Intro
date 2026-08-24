@@ -4,8 +4,6 @@
 #include "Factory.h"
 #include "Components/ColliderComponent.h"
 
-#include <iostream>
-
 namespace nu
 {
 	// TODO: Scene::Load
