@@ -1,10 +1,11 @@
 #include "pch.h"
 #include "Renderer.h"
-#include "Random.h"
-#include "Transform.h"
+#include "Math/Random.h"
+#include "Math/Transform.h"
 #include "Model.h"
-#include "MathUtils.h"
+#include "Math/MathUtils.h"
 #include "Texture.h"
+#include "Math/Rect.h"
 
 
 namespace nu
@@ -128,7 +129,7 @@ namespace nu
         SDL_RenderTextureRotated(m_renderer, texture.m_texture, NULL, &destRect, angle, NULL, (flipH ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE));
     }
 
-    void Renderer::DrawTexture(const class Texture& texture, const struct Transform& trans, bool flipH) const {
+    void Renderer::DrawTexture(const Texture& texture, const Transform& trans, bool flipH) const {
         Vector2 size = texture.GetSize();
 
         SDL_FRect destRect;
@@ -139,6 +140,24 @@ namespace nu
 
 
         SDL_RenderTextureRotated(m_renderer, texture.m_texture, NULL, &destRect, trans.rotation, NULL, (flipH ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE));
+    }
+
+    void Renderer::DrawTexture(const Texture& texture, const Rect& source, const Transform& trans, bool flipH) const
+    {
+        SDL_FRect sourceRect;
+        sourceRect.x = source.x;
+        sourceRect.y = source.y;
+        sourceRect.w = source.w;
+        sourceRect.h = source.h;
+
+        SDL_FRect destRect;
+        destRect.w = sourceRect.w * trans.scale;
+        destRect.h = sourceRect.h * trans.scale;
+        destRect.x = trans.position.x - (destRect.w / 2.0f);
+        destRect.y = trans.position.y - (destRect.h / 2.0f);
+
+        // I miss C#
+        SDL_RenderTextureRotated(m_renderer, texture.m_texture, &sourceRect, &destRect, trans.rotation, NULL, (flipH ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE));
     }
 
 

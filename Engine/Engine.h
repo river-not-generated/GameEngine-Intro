@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Random.h"
-#include "Vector2.h"
-#include "MathUtils.h"
+#include "Math/Random.h"
+#include "Math/Vector2.h"
+#include "Math/MathUtils.h"
 #include "StringUtils.h"
-#include "Transform.h"
+#include "Math/Transform.h"
 
 #include "Text.h"
 #include "Texture.h"
@@ -23,7 +23,7 @@
 #include "Actor.h"
 #include "Mesh.h"
 #include "Scene.h"
-#include "Audio.h"
+#include "Audio/Audio.h"
 #include "File.h"
 
 namespace nu

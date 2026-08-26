@@ -31,6 +31,7 @@ namespace nu
 
 		void DrawTexture(const class Texture& texture, float x, float y, float angle = 0.0f, float scale = 1.0f, bool flipH = false) const;
 		void DrawTexture(const class Texture& texture, const struct Transform& trans, bool flipH = false) const;
+		void DrawTexture(const class Texture& texture, const struct Rect& source, const struct Transform& trans, bool flipH = false) const;
 
 		void DrawDebugText(float x, float y, const char* text) const;
 

@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Texture.h"
 #include "Renderer.h"
-#include "Vector2.h"
+#include "Math/Vector2.h"
 
 
 namespace nu

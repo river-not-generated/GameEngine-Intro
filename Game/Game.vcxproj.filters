@@ -9,9 +9,14 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="Assets">
+      <UniqueIdentifier>{7326bbff-b162-4c77-9628-56a28927d0f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Animations">
+      <UniqueIdentifier>{78c6c46e-722f-4b0b-806c-1c12c0294238}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Scenes">
+      <UniqueIdentifier>{92d957a4-949c-401b-bf7d-a35c78609bb5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -58,8 +63,11 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Build\Assets\animations\bat_idle.json">
+      <Filter>Assets\Animations</Filter>
+    </None>
     <None Include="..\Build\Assets\data\scene.json">
-      <Filter>Resource Files</Filter>
+      <Filter>Assets\Scenes</Filter>
     </None>
   </ItemGroup>
 </Project>

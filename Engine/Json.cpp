@@ -69,9 +69,23 @@ namespace nu::json
         return true;
     }
 
+    bool Read(const value_t& value, const std::string& name, unsigned int& data, bool required)
+    {
+        if (!value.HasMember(name.c_str()) || !value[name.c_str()].IsUint())
+        {
+            if (required) std::cerr << "Could not read JSON value (unsigned int):" << name << std::endl;
+            return false;
+        }
+
+        // get the data
+        data = value[name.c_str()].GetUint();
+
+        return false;
+    }
+
     bool Read(const value_t& value, const std::string& name, float& data, bool required) {
         // check if the value has the “" and the correct data type 
-        if (!value.HasMember(name.c_str()) || !value[name.c_str()].IsFloat()) {
+        if (!value.HasMember(name.c_str()) || !value[name.c_str()].IsNumber()) {
             if (required) std::cerr << "Could not read JSON value (float):" << name << std::endl;
             return false;
         }
