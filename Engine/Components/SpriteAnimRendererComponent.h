@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Components/RendererComponent.h"
-#include "ResourceManager.h"
+#include "Resources/ResourceManager.h"
 
 namespace nu
 {

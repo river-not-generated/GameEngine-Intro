@@ -3,7 +3,7 @@
 #include "Engine.h"
 #include "Player.h"
 #include "SpaceGame.h"
-#include "Factory.h"
+#include "Core/Factory.h"
 #include <iostream>
 
 FACTORY_REGISTER(Enemy)

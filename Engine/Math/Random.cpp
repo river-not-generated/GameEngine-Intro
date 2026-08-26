@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "Math/Random.h"
+#include "Random.h"
 
 
 namespace nu

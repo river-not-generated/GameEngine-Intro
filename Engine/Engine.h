@@ -3,28 +3,28 @@
 #include "Math/Random.h"
 #include "Math/Vector2.h"
 #include "Math/MathUtils.h"
-#include "StringUtils.h"
+#include "Core/StringUtils.h"
 #include "Math/Transform.h"
 
-#include "Text.h"
-#include "Texture.h"
+#include "Renderer/Text.h"
+#include "Renderer/Texture.h"
 
-#include "Factory.h"
-#include "ResourceManager.h"
+#include "Core/Factory.h"
+#include "Resources/ResourceManager.h"
 
-#include "Renderer.h"
-#include "Input.h"
-#include "GameTime.h"
-#include "Game.h"
-#include "ParticleSystem.h"
+#include "Renderer/Renderer.h"
+#include "Input/Input.h"
+#include "Core/GameTime.h"
+#include "Framework/Game.h"
+#include "Renderer/ParticleSystem.h"
 #include "Physics/Physics.h"
-#include "Json.h"
+#include "Serialization/Json.h"
 
-#include "Actor.h"
-#include "Mesh.h"
-#include "Scene.h"
+#include "Framework/Actor.h"
+#include "Renderer/Mesh.h"
+#include "Framework/Scene.h"
 #include "Audio/Audio.h"
-#include "File.h"
+#include "Core/File.h"
 
 namespace nu
 {

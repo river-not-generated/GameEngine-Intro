@@ -156,7 +156,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\Engine\Assets.cpp" />
+    <ClCompile Include="Assets.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -170,10 +170,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Engine\Assets.h" />
-    <ClInclude Include="..\Engine\Player.h" />
+    <ClInclude Include="Assets.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Powerup.h" />
     <ClInclude Include="SpaceGame.h" />
   </ItemGroup>

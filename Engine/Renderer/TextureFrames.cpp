@@ -1,9 +1,9 @@
 #include "pch.h"
 #include "TextureFrames.h"
-#include "ResourceManager.h"
+#include "Resources/ResourceManager.h"
 #include "Texture.h"
 
-#include "Json.h"
+#include "Serialization/Json.h"
 
 namespace nu
 {

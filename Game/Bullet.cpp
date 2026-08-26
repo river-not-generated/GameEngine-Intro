@@ -2,7 +2,7 @@
 #include "Bullet.h"
 #include "Engine.h"
 #include "Player.h"
-#include "Factory.h"
+#include "Core/Factory.h"
 
 FACTORY_REGISTER(Bullet)
 
