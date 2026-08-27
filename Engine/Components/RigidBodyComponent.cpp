@@ -76,4 +76,13 @@ namespace nu
 	{
 		GetOwner()->SetPosition(position);
 	}
+
+	float RigidBodyComponent::GetRotation() const
+	{
+		return GetOwner()->GetTransform().rotation;
+	}
+	void RigidBodyComponent::SetRotation(float rotation)
+	{
+		GetOwner()->SetRotation(rotation);
+	}
 }

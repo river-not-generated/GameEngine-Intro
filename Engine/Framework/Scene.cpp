@@ -12,22 +12,21 @@ namespace nu
 			actor->Update(dt);
 		}
 
-		// destroy dead actors
-		std::erase_if(m_actors, [](auto& actor) { return actor->m_destroyed; });
+		// destroy dead actors, call OnDestroy() where necessary
+		std::erase_if(m_actors, [](auto& actor) 
+			{
+				if (actor->m_destroyed) actor->OnDestroy();
+				return actor->m_destroyed; 
+			});
 
 		UpdateCollisions();
 
 		// add pending actors
 		for (auto& actor : m_pendingActors) {
+			actor->OnStart();
 			m_actors.push_back(std::move(actor));
 		}
 		m_pendingActors.clear();
-	}
-
-	void Scene::Draw(const class Renderer& renderer) {
-		for (auto& actor : m_actors) {
-			if (actor) actor->Draw(renderer);
-		}
 	}
 
 	void Scene::UpdateCollisions()
@@ -47,6 +46,12 @@ namespace nu
   					actorB->OnCollision(actorA.get());
 				}
 			}
+		}
+	}
+
+	void Scene::Draw(const class Renderer& renderer) {
+		for (auto& actor : m_actors) {
+			if (actor) actor->Draw(renderer);
 		}
 	}
 

@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "SpaceGame.h"
 #include "Core/Factory.h"
+#include "Components/RigidBodyComponent.h"
 #include <iostream>
 
 FACTORY_REGISTER(Enemy)
@@ -11,27 +12,18 @@ FACTORY_REGISTER(Enemy)
 void Enemy::Update(float dt) {
     Player* player = m_scene->GetActorByTag<Player>("Player");
     if (player) {
-        nu::Vector2 direction = player->GetTransform().position - m_transform.position;
-        float rotation = direction.Angle();
+        auto physicsComponent = GetComponent<nu::PhysicsComponent>();
+        if (physicsComponent) {
+            nu::Vector2 forward{ 1.0f, 0.0f };
+            nu::Vector2 force = forward.Rotate(m_transform.rotation * nu::math::DEG_TO_RAD) * m_speed;
 
-        m_transform.rotation = rotation * nu::math::RAD_TO_DEG;
+            physicsComponent->ApplyForce(force);
 
-        nu::Vector2 forward{ 1, 0 };
-        forward = forward.Rotate(m_transform.rotation * nu::math::DEG_TO_RAD);
-        AddVelocity(forward * m_speed * dt);
+            nu::Vector2 direction = player->GetTransform().position - m_transform.position;
+            float rotation = direction.Angle();
+            physicsComponent->SetRotation(rotation * nu::math::RAD_TO_DEG);
+        }
     }
-
-    float thrust = 0.0f;
-
-    float rotate = 0.0f;
-
-    /*SetRotation(m_transform.rotation + rotate * dt);*/
-
-    nu::Vector2 forward{ 1.0f, 0.0f };
-    nu::Vector2 velocity = forward.Rotate(m_transform.rotation * nu::math::DEG_TO_RAD) * thrust;
-    AddVelocity(velocity * dt);
-
-    //SetVelocity(GetVelocity() + (force * dt));
 
     Actor::Update(dt);
 }

@@ -12,8 +12,8 @@ namespace nu
 		Component() = default;
 		virtual ~Component() = default;
 
-		virtual void Start() {}
-		virtual void Destroyed() {}
+		virtual void OnStart() {}
+		virtual void OnDestroy() {}
 
 		virtual void Update(float dt) {}
 

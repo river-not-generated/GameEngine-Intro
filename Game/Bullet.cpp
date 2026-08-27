@@ -3,13 +3,18 @@
 #include "Engine.h"
 #include "Player.h"
 #include "Core/Factory.h"
+#include "Components/RigidBodyComponent.h"
 
 FACTORY_REGISTER(Bullet)
 
 void Bullet::Update(float dt) {
-    nu::Vector2 forward{ 1.0f, 0.0f };
-    nu::Vector2 velocity = forward.Rotate(m_transform.rotation * nu::math::DEG_TO_RAD) * m_speed;
-    SetVelocity(velocity);
+    auto physicsComponent = GetComponent<nu::PhysicsComponent>();
+    if (physicsComponent) {
+        nu::Vector2 forward{ 1.0f, 0.0f };
+        nu::Vector2 force = forward.Rotate(m_transform.rotation * nu::math::DEG_TO_RAD) * m_speed;
+
+        physicsComponent->SetVelocity(force);
+    }
 
     Actor::Update(dt);
 }

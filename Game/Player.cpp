@@ -5,6 +5,7 @@
 #include "Assets.h"
 #include "SpaceGame.h"
 #include "Core/Factory.h"
+#include "Components/RigidBodyComponent.h"
 
 #include <iostream>
 
@@ -32,12 +33,30 @@ void Player::Update(float dt) {
 
     float rotate = 0.0f;
     if (nu::Engine::Get().GetInput().GetKeyDown(SDL_SCANCODE_A) || nu::Engine::Get().GetInput().GetKeyDown(SDL_SCANCODE_LEFT)) {
-        rotate = -180.0f;
+        rotate = -90.0f;
     }
     if (nu::Engine::Get().GetInput().GetKeyDown(SDL_SCANCODE_D) || nu::Engine::Get().GetInput().GetKeyDown(SDL_SCANCODE_RIGHT)) {
-        rotate = 180.0f;
+        rotate = 90.0f;
     }
 
+    SetRotation(m_transform.rotation + rotate * dt);
+    
+    auto physicsComponent = GetComponent<nu::PhysicsComponent>();
+    if (physicsComponent) {
+        nu::Vector2 forward{ 1.0f, 0.0f };
+        nu::Vector2 force = forward.Rotate(m_transform.rotation * nu::math::DEG_TO_RAD) * thrust;
+
+        physicsComponent->ApplyForce(force);
+        physicsComponent->ApplyTorque(rotate);
+
+        nu::Vector2 position = physicsComponent->GetPosition();
+
+        position.x = nu::math::Wrap(0.0f, nu::Engine::Get().GetRenderer().GetWindowWidth(), position.x);
+        position.y = nu::math::Wrap(0.0f, nu::Engine::Get().GetRenderer().GetWindowHeight(), position.y);
+
+        physicsComponent->SetPosition(position);
+    }
+    
     // dash
     if (nu::Engine::Get().GetInput().GetKeyDown(SDL_SCANCODE_LSHIFT) && m_dashCooldown == 0.0f) {
         thrust = m_speed * 125;
@@ -53,13 +72,6 @@ void Player::Update(float dt) {
         m_dashCooldown = 2.5f;
         nu::Engine::Get().GetAudio().PlaySound("thrust");
     }
-
-    SetRotation(m_transform.rotation + rotate * dt);
-
-    nu::Vector2 forward{ 1.0f, 0.0f };
-    nu::Vector2 velocity = forward.Rotate(m_transform.rotation * nu::math::DEG_TO_RAD) * thrust;
-    AddVelocity(velocity * dt);
-
 
     //SetVelocity(GetVelocity() + (force * dt));
 
@@ -91,6 +103,7 @@ void Player::Update(float dt) {
 }
 
 void Player::OnCollision(Actor* other) {
+    return;
     if (other->GetTag() == "Enemy") {
         other->Destroy();
         m_destroyed = true;
