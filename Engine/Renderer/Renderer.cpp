@@ -160,6 +160,24 @@ namespace nu
         SDL_RenderTextureRotated(m_renderer, texture.m_texture, &sourceRect, &destRect, trans.rotation, NULL, (flipH ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE));
     }
 
+    void Renderer::DrawTexture(const Texture& texture, const Rect& source, const Vector2& position, float rotation, float scale, bool flipH) const
+    {
+        SDL_FRect sourceRect;
+        sourceRect.x = source.x;
+        sourceRect.y = source.y;
+        sourceRect.w = source.w;
+        sourceRect.h = source.h;
+
+        SDL_FRect destRect;
+        destRect.w = sourceRect.w * scale;
+        destRect.h = sourceRect.h * scale;
+        destRect.x = position.x - (destRect.w / 2.0f);
+        destRect.y = position.y - (destRect.h / 2.0f);
+
+        // I miss C#
+        SDL_RenderTextureRotated(m_renderer, texture.m_texture, &sourceRect, &destRect, rotation, NULL, (flipH ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE));
+    }
+
 
     void Renderer::DrawDebugText(float x, float y, const char* text) const
     {

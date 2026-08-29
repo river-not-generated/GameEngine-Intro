@@ -39,14 +39,16 @@ namespace nu
 	{
 		RendererComponent::Read(value);
 
-		JSON_READ_REQ_NAME(value, "fps", m_fps);
+		JSON_READ_NAME_REQ(value, "fps", m_fps);
 		JSON_READ_NAME(value, "loop", m_loop);
 
 		std::string texture_frames;
 		JSON_READ_REQ(value, texture_frames);
 
-		if (!texture_frames.empty()) {
+		if (texture_frames.empty()) {
 			std::cerr << "Could not load texture frames: " << texture_frames << std::endl;
+		}
+		else {
 			m_textureFrames = Resources().Get<TextureFrames>(texture_frames, Engine::Get().GetRenderer());
 		}
 	}

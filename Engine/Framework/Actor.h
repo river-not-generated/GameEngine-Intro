@@ -71,8 +71,10 @@ namespace nu {
         const std::string& GetTag() const { return m_tag; }
 
 
-        bool GetDestroyed() const { return m_destroyed; }
+        bool IsDestroyed() const { return m_destroyed; }
         void Destroy(bool destroyed = true) { m_destroyed = destroyed; }
+
+        bool GetPersistent() const { return m_persistent; }
 
         Scene* GetScene() const { return m_scene; };
 
@@ -92,6 +94,7 @@ namespace nu {
         Transform m_transform;
         float m_lifespan = 0.0f;
         bool m_destroyed = false;
+        bool m_persistent = false;
 
         std::vector<std::unique_ptr<Component>> m_components;
 

@@ -18,6 +18,9 @@
     <Filter Include="Assets\Scenes">
       <UniqueIdentifier>{92d957a4-949c-401b-bf7d-a35c78609bb5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets\Tilemap">
+      <UniqueIdentifier>{e57ba7c7-6e39-4d1e-b0b0-64825c65f84c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -68,6 +71,9 @@
     </None>
     <None Include="..\Build\Assets\data\scene.json">
       <Filter>Assets\Scenes</Filter>
+    </None>
+    <None Include="..\Build\Assets\tilemaps\world.json">
+      <Filter>Assets\Tilemap</Filter>
     </None>
   </ItemGroup>
 </Project>

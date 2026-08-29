@@ -31,6 +31,9 @@ namespace nu
 		static float m_pixelsPerUnit;
 
 	private:
+		void ProcessCollisionEvents();
+
+	private:
 		b2WorldId m_worldId;
 	};
 }

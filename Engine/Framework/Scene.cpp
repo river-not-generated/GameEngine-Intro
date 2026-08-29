@@ -60,14 +60,18 @@ namespace nu
 		m_pendingActors.push_back(std::move(actor));
 	}
 
-	void Scene::RemoveAllActors() {
-		m_actors.clear();
+	void Scene::RemoveAllActors(bool forceAll) {
+		if (forceAll) {
+			m_actors.clear();
+			return;
+		}
+		std::erase_if(m_actors, [](auto& actor) { return !actor->GetPersistent(); });
 	}
 
 	bool Scene::Load(const std::string& sceneName)
 	{
 		json::document_t document;
-		if (json::Load("data/scene.json", document)) {
+		if (json::Load(sceneName, document)) {
 			if (JSON_HAS_NAME(document, "actors")) {
 				for (auto& actorValue : JSON_GET_NAME(document, "actors").GetArray()) {
 					// get actor type

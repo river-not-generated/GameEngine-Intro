@@ -138,7 +138,7 @@ namespace nu::json
 
     bool Read(const value_t& value, const std::string& name, Vector3& data, bool required)
     {
-        // check if the value has the "<name>" and is an array with 2 elements
+        // check if the value has the "<name>" and is an array with 3 elements
         if (!value.HasMember(name.c_str()) || !value[name.c_str()].IsArray() || value[name.c_str()].Size() != 3)
         {
             if (required) std::cerr << "Could not read JSON value (Vector3):" << name << std::endl;
@@ -158,6 +158,32 @@ namespace nu::json
 
             // get the data
             data[i] = array[i].GetFloat();
+        }
+
+        return true;
+    }
+    bool Read(const value_t& value, const std::string& name, std::vector<int>& data, bool required)
+    {
+        // check if the value has the "<name>"
+        if (!value.HasMember(name.c_str()) || !value[name.c_str()].IsArray())
+        {
+            if (required) std::cerr << "Could not read JSON value (vector<int>):" << name << std::endl;
+            return false;
+        }
+
+        // get json array object
+        auto& array = value[name.c_str()];
+        // get array values, iterate through each element
+        for (rapidjson::SizeType i = 0; i < array.Size(); i++)
+        {
+            if (!array[i].IsInt())
+            {
+                if (required) std::cerr << "Could not read JSON value (vector<int>):" << name << std::endl;
+                return false;
+            }
+
+            // get the data
+            data.push_back(array[i].GetInt());
         }
 
         return true;

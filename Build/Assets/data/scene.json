@@ -5,6 +5,7 @@
       "name": "Bat",
       "tag": "Enemy",
       "active": true,
+      "persistent": true,
       "transform": {
         "position": [ 200, 200 ],
         "rotation": 0.0,
@@ -15,6 +16,25 @@
           "type": "SpriteAnimRendererComponent",
           "texture_frames": "animations/bat_idle.json",
           "fps": 10.0
+        }
+      ]
+    },
+
+    {
+      "type": "Actor",
+      "name": "Tilemap",
+      "tag": "Ground",
+      "active": true,
+      "persistent": true,
+      "transform": {
+        "position": [ 0, 0 ],
+        "rotation": 0.0,
+        "scale": 2.0
+      },
+      "components": [
+        {
+          "type": "TilemapRendererComponent",
+          "tilemap_name": "tilemaps/world.json"
         }
       ]
     },
@@ -37,15 +57,11 @@
           "texture": "textures/player.png"
         },
         {
-          "type": "CircleColliderComponent",
-          "radius": 10.0
-        },
-        {
           "type": "Box2DPhysicsComponent",
           "linear_damping": 0.9,
           "angular_damping": 3,
           "size": [ 48, 48 ],
-          "gravity_scale":  0
+          "gravity_scale": 0
         }
       ]
     },
@@ -66,10 +82,6 @@
         {
           "type": "SpriteRendererComponent",
           "texture": "textures/enemy.png"
-        },
-        {
-          "type": "CircleColliderComponent",
-          "radius": 20.0
         },
         {
           "type": "Box2DPhysicsComponent",
@@ -100,15 +112,12 @@
           "texture": "textures/bullet.png"
         },
         {
-          "type": "CircleColliderComponent",
-          "radius": 20.0
-        },
-        {
           "type": "Box2DPhysicsComponent",
           "linear_damping": 0.9,
           "angular_damping": 3,
           "size": [ 48, 48 ],
-          "gravity_scale": 0
+          "gravity_scale": 0,
+          "is_sensor": true
         }
       ]
     },
