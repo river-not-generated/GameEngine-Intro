@@ -1,9 +1,6 @@
 #include "Engine.h"
-#include "Player.h"
-#include "Enemy.h"
-#include "Assets.h"
 
-#include "SpaceGame.h"
+#include "SpaceGame/SpaceGame.h"
 
 #include <iostream>
 #include <vector>
@@ -17,19 +14,18 @@ const float WIN_HEIGHT = 1080.0f;
 
 int main()
 {   
-    nu::SetWorkingDirectory("assets");
+    nu::SetWorkingDirectory("assets/SpaceGame");
 
     // initialize the engine
     if (Engine::Get().Initialize(WIN_WIDTH, WIN_HEIGHT) == false) return 0;
 
-    SpaceGame game;
+    unique_ptr<SpaceGame> spaceGame = make_unique<SpaceGame>();
 
-    game.Initialize();
+    spaceGame->Initialize();
 
     // create texture, using shared_ptr so texture can be shared
     std::shared_ptr<Texture> texture = std::make_shared<Texture>();
     //texture->Load("textures/player.png", Engine::Get().GetRenderer() );
-
 
     // -----------------
     // --- MAIN LOOP ---
@@ -50,7 +46,7 @@ int main()
         Engine::Get().Update();
         float dt = Engine::Get().GetTime().GetDeltaTime();
 
-        game.Update(dt);
+        spaceGame->Update(dt);
 
         // get the current position & state of the mouse
         Vector2 mousePosition;
@@ -63,13 +59,14 @@ int main()
         Engine::Get().GetRenderer().SetColour(0, 0, 0);
         Engine::Get().GetRenderer().Clear(); // Clear the renderer
 
-        game.Draw(Engine::Get().GetRenderer());
+        spaceGame->Draw(Engine::Get().GetRenderer());
 
         Engine::Get().GetPS().Draw(Engine::Get().GetRenderer());
 
         Engine::Get().GetRenderer().Present(); // render the screen
     }
 
+    spaceGame.reset();
     // shut down the program cleanly upon exiting
     Engine::Get().Shutdown();
 

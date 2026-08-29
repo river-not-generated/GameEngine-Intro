@@ -4,7 +4,7 @@
 #include "Resources/ResourceManager.h"
 #include <map>
 
-class SpaceGame : public nu::Game
+class PlatformerGame : public nu::Game
 {
 public:
 	enum class GameState {
@@ -17,24 +17,13 @@ public:
 	};
 
 public:
-	SpaceGame() = default;
-	SpaceGame(nu::Scene* scene) : Game{ scene } {}
+	PlatformerGame() = default;
 
 	bool Initialize() override;
 	void Update(float dt) override;
 	void Draw(class nu::Renderer& renderer) override;
 
-	void AddPoints(int points) { m_score += points; }
-	void IncreaseKillCount() { m_killCount++; }
-	void UpdateSpawnTime() { m_spawnMod = (m_killCount % 3 == 0 ? std::max(0.1f, m_spawnMod - 0.05f) : m_spawnMod); }
-	void OnPlayerDead();
-	void AddHeart() { m_lives++; }
-
-
 private:
-	void SpawnPlayer();
-	void SpawnEnemy();
-	void SpawnPowerup();
 
 
 private:

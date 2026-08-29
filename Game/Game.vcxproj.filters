@@ -1,79 +1,81 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="SpaceGame">
+      <UniqueIdentifier>{fb287e48-b698-4b5f-97bd-2787e117b1df}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    <Filter Include="PlatformerGame">
+      <UniqueIdentifier>{7b299f91-36a1-4269-985a-90980257d57f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Assets">
+    <Filter Include="SpaceGame\Assets">
       <UniqueIdentifier>{7326bbff-b162-4c77-9628-56a28927d0f6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Assets\Animations">
+    <Filter Include="SpaceGame\Assets\Animations">
       <UniqueIdentifier>{78c6c46e-722f-4b0b-806c-1c12c0294238}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Assets\Scenes">
+    <Filter Include="SpaceGame\Assets\Scenes">
       <UniqueIdentifier>{92d957a4-949c-401b-bf7d-a35c78609bb5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Assets\Tilemap">
+    <Filter Include="SpaceGame\Assets\Tilemap">
       <UniqueIdentifier>{e57ba7c7-6e39-4d1e-b0b0-64825c65f84c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="SpaceGame\Assets.cpp">
+      <Filter>SpaceGame</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="SpaceGame\Bullet.cpp">
+      <Filter>SpaceGame</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="SpaceGame\Enemy.cpp">
+      <Filter>SpaceGame</Filter>
     </ClCompile>
-    <ClCompile Include="Bullet.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="SpaceGame\Player.cpp">
+      <Filter>SpaceGame</Filter>
     </ClCompile>
-    <ClCompile Include="SpaceGame.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="SpaceGame\Powerup.cpp">
+      <Filter>SpaceGame</Filter>
     </ClCompile>
-    <ClCompile Include="Powerup.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="SpaceGame\SpaceGame.cpp">
+      <Filter>SpaceGame</Filter>
     </ClCompile>
-    <ClCompile Include="Assets.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Platformer\PlatformerGame.cpp">
+      <Filter>PlatformerGame</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Enemy.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="SpaceGame\Assets.h">
+      <Filter>SpaceGame</Filter>
     </ClInclude>
-    <ClInclude Include="Bullet.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="SpaceGame\Bullet.h">
+      <Filter>SpaceGame</Filter>
     </ClInclude>
-    <ClInclude Include="SpaceGame.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="SpaceGame\Enemy.h">
+      <Filter>SpaceGame</Filter>
     </ClInclude>
-    <ClInclude Include="Powerup.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="SpaceGame\Player.h">
+      <Filter>SpaceGame</Filter>
     </ClInclude>
-    <ClInclude Include="Assets.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="SpaceGame\Powerup.h">
+      <Filter>SpaceGame</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="SpaceGame\SpaceGame.h">
+      <Filter>SpaceGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Platformer\PlatformerGame.h">
+      <Filter>PlatformerGame</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Build\Assets\animations\bat_idle.json">
-      <Filter>Assets\Animations</Filter>
+    <None Include="..\Build\Assets\SpaceGame\data\scene.json">
+      <Filter>SpaceGame\Assets\Scenes</Filter>
     </None>
-    <None Include="..\Build\Assets\data\scene.json">
-      <Filter>Assets\Scenes</Filter>
+    <None Include="..\Build\Assets\SpaceGame\animations\bat_idle.json">
+      <Filter>SpaceGame\Assets\Animations</Filter>
     </None>
-    <None Include="..\Build\Assets\tilemaps\world.json">
-      <Filter>Assets\Tilemap</Filter>
+    <None Include="..\Build\Assets\SpaceGame\tilemaps\world.json">
+      <Filter>SpaceGame\Assets\Tilemap</Filter>
     </None>
   </ItemGroup>
 </Project>

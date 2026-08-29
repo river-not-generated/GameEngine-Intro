@@ -1,6 +1,7 @@
 {
     "activeFile": "world.json",
     "expandedProjectPaths": [
+        "."
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
@@ -12,8 +13,8 @@
             "scale": 1.5,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 224,
-                "y": 75.99999999999999
+                "x": 314.99999999999994,
+                "y": 152.33333333333337
             }
         }
     },
@@ -24,8 +25,8 @@
     "map.tileHeight": 16,
     "map.tileWidth": 16,
     "openFiles": [
-        "ground.tsx",
-        "world.json"
+        "world.json",
+        "ground.tsx"
     ],
     "project": "world.tiled-project",
     "property.type": "string",

@@ -1,18 +1,15 @@
-#include "SpaceGame.h"
+#include "PlatformerGame.h"
 #include "Engine.h"
-#include "Player.h"
-#include "Enemy.h"
-#include "Powerup.h"
-#include "Assets.h"
 
 #include <memory>
 
 using namespace nu;
 
-bool SpaceGame::Initialize() {
+bool PlatformerGame::Initialize() {
+    nu::SetWorkingDirectory("assets/PlatformerGame");
     Game::Initialize();
 
-    m_scene = new Scene();
+    m_scene = std::make_unique<Scene>();
     m_scene->SetGame(this);
     m_scene->Load("data/scene.json");
 
@@ -65,15 +62,14 @@ bool SpaceGame::Initialize() {
     return true;
 }
 
-void SpaceGame::Update(float dt) {
-    nu::Particle star;
+void PlatformerGame::Update(float dt) {
     switch (m_gamestate) {
-        case SpaceGame::GameState::Title:
+        case PlatformerGame::GameState::Title:
             if (Engine::Get().GetInput().GetKeyPressed(SDL_SCANCODE_RETURN)) {
                 m_gamestate = GameState::StartGame;
             }
             break;
-        case SpaceGame::GameState::StartGame:
+        case PlatformerGame::GameState::StartGame:
             m_score = 0;
             m_lives = 3;
             m_spawnMod = 1.0f;
@@ -81,32 +77,29 @@ void SpaceGame::Update(float dt) {
             m_gamestate = GameState::StartLevel;
             m_stateTimer = 0.0f;
             break;
-        case SpaceGame::GameState::StartLevel:
+        case PlatformerGame::GameState::StartLevel:
             m_stateTimer -= dt;
             if (m_stateTimer <= 0) {
                 m_scene->RemoveAllActors();
                 m_spawnTime = 1.0f;
                 m_powerupSpawnTime = 5.0f;
-                SpawnPlayer();
                 Engine::Get().GetAudio().PlaySound("blip");
                 m_gamestate = GameState::Game;
             }
             break;
-        case SpaceGame::GameState::Game:
+        case PlatformerGame::GameState::Game:
             m_spawnTime -= dt;
             if (m_spawnTime <= 0) {
                 m_spawnTime = nu::RandomFloat(3.0f, 4.0f) * m_spawnMod;
-                SpawnEnemy();
             }
             m_powerupSpawnTime -= dt;
             if (m_powerupSpawnTime <= 0) {
                 m_powerupSpawnTime = nu::RandomFloat(12.5f, 15.0f);
-                SpawnPowerup();
             }
             break;
-        case SpaceGame::GameState::EndLevel:
+        case PlatformerGame::GameState::EndLevel:
             break;
-        case SpaceGame::GameState::GameOver:
+        case PlatformerGame::GameState::GameOver:
             if (Engine::Get().GetInput().GetKeyPressed(SDL_SCANCODE_RETURN)) {
                 m_scene->RemoveAllActors();
                 m_gamestate = GameState::Title;
@@ -119,18 +112,18 @@ void SpaceGame::Update(float dt) {
     Game::Update(dt);
 }
 
-void SpaceGame::Draw(nu::Renderer& renderer) {
+void PlatformerGame::Draw(nu::Renderer& renderer) {
     renderer.DrawTexture(*Resources().Get<Texture>("textures/background.png", renderer), 30.0f, 30.0f);
     Game::Draw(renderer);
     switch (m_gamestate) {
-        case SpaceGame::GameState::Title:
+        case PlatformerGame::GameState::Title:
             m_text["title"]->Draw(renderer, 225, 400);
             m_text["subtitle"]->Draw(renderer, 150, 500);
             m_text["start"]->Draw(renderer, 275, 600);
             break;
-        case SpaceGame::GameState::StartGame:
-        case SpaceGame::GameState::StartLevel:
-        case SpaceGame::GameState::Game:
+        case PlatformerGame::GameState::StartGame:
+        case PlatformerGame::GameState::StartLevel:
+        case PlatformerGame::GameState::Game:
             m_text["score"]->Create(renderer, "Score: " + std::to_string(m_score), Colour{ 255,255,255 });
             m_text["score"]->Draw(renderer, 50, 50);
             for (int i = 0; i < m_lives; i++) {
@@ -139,9 +132,9 @@ void SpaceGame::Draw(nu::Renderer& renderer) {
             m_text["fire"]->Draw(renderer, 50, renderer.GetWindowHeight() - 100);
             m_text["dash"]->Draw(renderer, 50, renderer.GetWindowHeight() - 50);
             break;
-        case SpaceGame::GameState::EndLevel:
+        case PlatformerGame::GameState::EndLevel:
             break;
-        case SpaceGame::GameState::GameOver:
+        case PlatformerGame::GameState::GameOver:
             m_text["gameover"]->Draw(renderer, 375, 400);
             m_text["finalscore"]->Create(renderer, "High Score: " + std::to_string(m_highScore), Colour{ 255,255,255 });
             m_text["finalscore"]->Draw(renderer, 400, 500);
@@ -151,54 +144,4 @@ void SpaceGame::Draw(nu::Renderer& renderer) {
         default:
             break;
     }
-}
-
-void SpaceGame::SpawnPlayer() {
-    auto actor = Factory::Instance().Create<Actor>("PlayerPrototype");
-    actor->SetPosition(Vector2{ Engine::Get().GetRenderer().GetWindowWidth() / 2, Engine::Get().GetRenderer().GetWindowHeight() / 2 });
-    m_scene->AddActor(std::move(actor));
-}
-
-void SpaceGame::SpawnEnemy() {
-    float winWidth = Engine::Get().GetRenderer().GetWindowWidth();
-    float winHeight = Engine::Get().GetRenderer().GetWindowHeight();
-
-    auto actor = Factory::Instance().Create<Actor>("EnemyPrototype");
-    actor->SetPosition(
-        Vector2{ RandomInt(0, 1) == 0 ? RandomFloat(0, winWidth / 4.0f) : RandomFloat(winWidth * (0.5f), winWidth)
-        , RandomInt(0, 1) == 0 ? RandomFloat(0, winHeight / 4.0f) : RandomFloat(winHeight * (0.75f), winHeight), }
-    );
-    m_scene->AddActor(std::move(actor));
-}
-
-void SpaceGame::SpawnPowerup() {
-    float winWidth = Engine::Get().GetRenderer().GetWindowWidth();
-    float winHeight = Engine::Get().GetRenderer().GetWindowHeight();
-
-    int num = RandomInt(0, 1);
-    if (num == 0) {
-        auto actor = Factory::Instance().Create<Actor>("TripleshotPrototype");
-        actor->SetPosition(Vector2{ RandomFloat(0, winWidth), RandomFloat(0, winHeight) });
-        m_scene->AddActor(std::move(actor));
-    }
-    else {
-        auto actor = Factory::Instance().Create<Actor>("HeartPrototype");
-        actor->SetPosition(Vector2{ RandomFloat(0, winWidth), RandomFloat(0, winHeight) });
-        m_scene->AddActor(std::move(actor));
-    }
-}
-
-void SpaceGame::OnPlayerDead() {
-    m_lives -= 1;
-    if (m_lives == 0) {
-        m_gamestate = GameState::GameOver;
-        Engine::Get().GetAudio().PlaySound("death");
-        m_highScore = std::max(m_highScore, m_score);
-    }
-    else {
-        m_gamestate = GameState::StartLevel;
-        Engine::Get().GetAudio().PlaySound("hurt");
-    }
-
-    m_stateTimer = 3.0f;
 }
