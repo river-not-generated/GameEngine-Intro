@@ -163,6 +163,9 @@
     <ClInclude Include="Components\TilemapRendererComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
+    <ClInclude Include="Components\SpriteAnimatorComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -248,6 +251,9 @@
       <Filter>Renderer</Filter>
     </ClCompile>
     <ClCompile Include="Components\TilemapRendererComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\SpriteAnimatorComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
   </ItemGroup>

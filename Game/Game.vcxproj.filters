@@ -19,6 +19,18 @@
     <Filter Include="SpaceGame\Assets\Tilemap">
       <UniqueIdentifier>{e57ba7c7-6e39-4d1e-b0b0-64825c65f84c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PlatformerGame\Assets">
+      <UniqueIdentifier>{f6009697-ee33-4ea1-b1c2-bb0f9e1d6e34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlatformerGame\Assets\Animations">
+      <UniqueIdentifier>{b526074f-7905-4607-9528-6ef0066981f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlatformerGame\Assets\Scenes">
+      <UniqueIdentifier>{a2215d89-5e40-4318-9e95-12e4999b9759}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlatformerGame\Assets\Tilemap">
+      <UniqueIdentifier>{83bb59ce-9849-4721-a9cf-7bff91f10787}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -76,6 +88,15 @@
     </None>
     <None Include="..\Build\Assets\SpaceGame\tilemaps\world.json">
       <Filter>SpaceGame\Assets\Tilemap</Filter>
+    </None>
+    <None Include="..\Build\Assets\PlatformerGame\scenes\scene.json">
+      <Filter>PlatformerGame\Assets\Scenes</Filter>
+    </None>
+    <None Include="..\Build\Assets\PlatformerGame\animations\bat_idle.json">
+      <Filter>PlatformerGame\Assets\Animations</Filter>
+    </None>
+    <None Include="..\Build\Assets\PlatformerGame\tilemaps\world.json">
+      <Filter>PlatformerGame\Assets\Tilemap</Filter>
     </None>
   </ItemGroup>
 </Project>

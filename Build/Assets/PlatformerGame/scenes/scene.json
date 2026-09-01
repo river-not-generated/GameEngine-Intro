@@ -1,0 +1,39 @@
+{
+  "actors": [
+    {
+      "type": "Actor",
+      "name": "Bat",
+      "tag": "Enemy",
+      "active": true,
+      "persistent": true,
+      "transform": {
+        "position": [ 200, 200 ],
+        "rotation": 0.0,
+        "scale": 2.0
+      },
+      "components": [
+        {
+          "type": "SpriteAnimatorComponent",
+          "default_animation": "idle",
+          "animations": [
+            {
+              "name": "idle",
+              "texture_frames": "animations/bat_idle.json",
+              "fps": 10.0,
+              "loop": true
+            }
+          ]
+        },
+        {
+          "type": "Box2DPhysicsComponent",
+          "linear_damping": 0.7,
+          "angular_damping": 2,
+          "size": [ 48, 48 ],
+          "gravity_scale": 0.1,
+          "constrain_angle":  true
+        }
+      ]
+    }
+
+  ]
+}

@@ -180,6 +180,9 @@
     <ClInclude Include="SpaceGame\SpaceGame.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Build\Assets\PlatformerGame\animations\bat_idle.json" />
+    <None Include="..\Build\Assets\PlatformerGame\scenes\scene.json" />
+    <None Include="..\Build\Assets\PlatformerGame\tilemaps\world.json" />
     <None Include="..\Build\Assets\SpaceGame\animations\bat_idle.json" />
     <None Include="..\Build\Assets\SpaceGame\data\scene.json" />
     <None Include="..\Build\Assets\SpaceGame\tilemaps\world.json" />

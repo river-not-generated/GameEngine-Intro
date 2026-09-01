@@ -11,7 +11,7 @@ bool PlatformerGame::Initialize() {
 
     m_scene = std::make_unique<Scene>();
     m_scene->SetGame(this);
-    m_scene->Load("data/scene.json");
+    m_scene->Load("scenes/scene.json");
 
     // i'm tired of typing out the whole thing
     auto renderer = Engine::Get().GetRenderer();

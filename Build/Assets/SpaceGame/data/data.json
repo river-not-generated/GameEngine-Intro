@@ -1,8 +1,0 @@
-{
-	"name": "River",
-	"age": 18,
-	"speed": 30.0,
-	"isAwake": false,
-	"position": [50, 50],
-	"colour": [162, 184, 66]
-}

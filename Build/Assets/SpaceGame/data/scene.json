@@ -13,9 +13,23 @@
       },
       "components": [
         {
-          "type": "SpriteAnimRendererComponent",
-          "texture_frames": "animations/bat_idle.json",
-          "fps": 10.0
+          "type": "SpriteAnimatorComponent",
+          "default_animation": "idle",
+          "animations": [
+            {
+              "name": "idle",
+              "texture_frames": "animations/bat_idle.json",
+              "fps": 10.0,
+              "loop": true
+            }
+          ]
+        },
+        {
+          "type": "Box2DPhysicsComponent",
+          "linear_damping": 0.7,
+          "angular_damping": 2,
+          "size": [ 48, 48 ],
+          "gravity_scale": 0.1
         }
       ]
     },

@@ -174,6 +174,7 @@ namespace nu
         destRect.x = position.x - (destRect.w / 2.0f);
         destRect.y = position.y - (destRect.h / 2.0f);
 
+        SDL_SetTextureScaleMode(texture.m_texture, SDL_SCALEMODE_NEAREST);
         // I miss C#
         SDL_RenderTextureRotated(m_renderer, texture.m_texture, &sourceRect, &destRect, rotation, NULL, (flipH ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE));
     }
