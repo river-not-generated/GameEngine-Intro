@@ -57,7 +57,7 @@ void Player::Update(float dt) {
         physicsComponent->SetPosition(position);
     }
     
-    // dash
+    // dash (broken)
     if (nu::Engine::Get().GetInput().GetKeyDown(SDL_SCANCODE_LSHIFT) && m_dashCooldown == 0.0f) {
         thrust = m_speed * 125;
         for (int i = 0; i < 50; i++) {

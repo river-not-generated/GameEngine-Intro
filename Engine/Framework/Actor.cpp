@@ -22,7 +22,7 @@ namespace nu
         }
     }
 
-    void Actor::OnStart() const {
+    void Actor::OnStart()  {
         for (auto& c : m_components) {
             c->OnStart();
         }
@@ -36,21 +36,15 @@ namespace nu
         }
 
         for (auto& c : m_components) {
-            c->Update(dt);
+            if (c->IsActive()) c->Update(dt);
         }
-
-        //m_transform.position += (m_velocity * dt);
-        //m_velocity *= (1.0f / ((1.0f) + m_damping * dt));
-
-        m_transform.position.x = nu::math::Wrap(0.0f, Engine::Get().GetRenderer().GetWindowWidth(), m_transform.position.x);
-        m_transform.position.y = nu::math::Wrap(0.0f, Engine::Get().GetRenderer().GetWindowHeight(), m_transform.position.y);
     }
 
     void Actor::Draw(const Renderer& renderer) const {
         for (auto& c : m_components) {
             // check if component is a renderer component (can be drawn)
             auto rc = dynamic_cast<RendererComponent*>(c.get());
-            if (rc) rc->Draw(renderer);
+            if (rc && rc->IsActive()) rc->Draw(renderer);
         }
     }
 
@@ -60,7 +54,7 @@ namespace nu
         }
     }
 
-    //
+    
     float Actor::GetRadius(float error) const {
 
         return 0.0f;

@@ -60,6 +60,15 @@ namespace nu
 		m_sourceRect = m_currentAnimation.textureFrames->GetFrameRect(m_frame);
 	}
 
+	bool SpriteAnimatorComponent::IsAnimationDone() const
+	{
+		return (m_frame == m_currentAnimation.textureFrames->GetTotalFrames() - 1);
+	}
+
+	int SpriteAnimatorComponent::GetTotalFrames() const {
+		return m_currentAnimation.textureFrames->GetTotalFrames();
+	}
+
 	void SpriteAnimatorComponent::Read(const json::value_t& value)
 	{
 		SpriteRendererComponent::Read(value);
@@ -88,7 +97,7 @@ namespace nu
 					}
 				}
 
-				JSON_READ_NAME_REQ(animatorValue, "frames_per_second", spriteAnimation.fps);
+				JSON_READ_NAME_REQ(animatorValue, "fps", spriteAnimation.fps);
 				JSON_READ_NAME(animatorValue, "loop", spriteAnimation.loop);
 
 				m_animations[ToLower(spriteAnimation.name)] = spriteAnimation;

@@ -31,6 +31,9 @@
     <Filter Include="PlatformerGame\Assets\Tilemap">
       <UniqueIdentifier>{83bb59ce-9849-4721-a9cf-7bff91f10787}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PlatformerGame\Actors">
+      <UniqueIdentifier>{da811265-f03a-4486-bb3d-23d8dbb0b5d2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -55,6 +58,19 @@
     <ClCompile Include="Platformer\PlatformerGame.cpp">
       <Filter>PlatformerGame</Filter>
     </ClCompile>
+    <ClCompile Include="Platformer\CharacterBase.cpp">
+      <Filter>PlatformerGame\Actors</Filter>
+    </ClCompile>
+    <ClCompile Include="Platformer\Damager.cpp">
+      <Filter>PlatformerGame\Actors</Filter>
+    </ClCompile>
+    <ClCompile Include="Platformer\PlayerController.cpp">
+      <Filter>PlatformerGame\Actors</Filter>
+    </ClCompile>
+    <ClCompile Include="Platformer\EnemyController.cpp">
+      <Filter>PlatformerGame\Actors</Filter>
+    </ClCompile>
+    <ClCompile Include="Platformer\GoalController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SpaceGame\Assets.h">
@@ -78,6 +94,21 @@
     <ClInclude Include="Platformer\PlatformerGame.h">
       <Filter>PlatformerGame</Filter>
     </ClInclude>
+    <ClInclude Include="Platformer\CharacterBase.h">
+      <Filter>PlatformerGame\Actors</Filter>
+    </ClInclude>
+    <ClInclude Include="Platformer\Damager.h">
+      <Filter>PlatformerGame\Actors</Filter>
+    </ClInclude>
+    <ClInclude Include="Platformer\PlayerController.h">
+      <Filter>PlatformerGame\Actors</Filter>
+    </ClInclude>
+    <ClInclude Include="Platformer\EnemyController.h">
+      <Filter>PlatformerGame\Actors</Filter>
+    </ClInclude>
+    <ClInclude Include="Platformer\GoalController.h">
+      <Filter>PlatformerGame\Actors</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Build\Assets\SpaceGame\data\scene.json">
@@ -95,7 +126,13 @@
     <None Include="..\Build\Assets\PlatformerGame\animations\bat_idle.json">
       <Filter>PlatformerGame\Assets\Animations</Filter>
     </None>
-    <None Include="..\Build\Assets\PlatformerGame\tilemaps\world.json">
+    <None Include="..\Build\Assets\PlatformerGame\tilemaps\level1.json">
+      <Filter>PlatformerGame\Assets\Tilemap</Filter>
+    </None>
+    <None Include="..\Build\Assets\PlatformerGame\tilemaps\level2.json">
+      <Filter>PlatformerGame\Assets\Tilemap</Filter>
+    </None>
+    <None Include="..\Build\Assets\PlatformerGame\tilemaps\level3.json">
       <Filter>PlatformerGame\Assets\Tilemap</Filter>
     </None>
   </ItemGroup>

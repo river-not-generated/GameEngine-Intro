@@ -27,6 +27,11 @@ namespace nu
 		void SetPaused(bool paused = true) { m_paused = paused; }
 		void Pause() { m_paused = true; }
 
+		int GetFrame() const { return m_frame; }
+		bool IsAnimationDone() const;
+		const std::string& GetAnimationName() const { return m_currentAnimation.name; }
+		int GetTotalFrames() const;
+
 		void Read(const json::value_t& value) override;
 
 	private:

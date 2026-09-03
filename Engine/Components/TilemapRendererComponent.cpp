@@ -91,6 +91,8 @@ namespace nu
 		RendererComponent::Read(value);
 
 		JSON_READ_NAME(value, "tilemap_name", m_tilemapName);
+		JSON_READ_NAME(value, "player_spawn", m_playerSpawn);
+		JSON_READ_NAME(value, "goal_spawn", m_goalSpawn);
 	}
 }
 

@@ -157,7 +157,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Platformer\CharacterBase.cpp" />
+    <ClCompile Include="Platformer\Damager.cpp" />
+    <ClCompile Include="Platformer\EnemyController.cpp" />
+    <ClCompile Include="Platformer\GoalController.cpp" />
     <ClCompile Include="Platformer\PlatformerGame.cpp" />
+    <ClCompile Include="Platformer\PlayerController.cpp" />
     <ClCompile Include="SpaceGame\Assets.cpp" />
     <ClCompile Include="SpaceGame\Bullet.cpp" />
     <ClCompile Include="SpaceGame\Enemy.cpp" />
@@ -171,7 +176,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Platformer\CharacterBase.h" />
+    <ClInclude Include="Platformer\Damager.h" />
+    <ClInclude Include="Platformer\EnemyController.h" />
+    <ClInclude Include="Platformer\GoalController.h" />
     <ClInclude Include="Platformer\PlatformerGame.h" />
+    <ClInclude Include="Platformer\PlayerController.h" />
     <ClInclude Include="SpaceGame\Assets.h" />
     <ClInclude Include="SpaceGame\Bullet.h" />
     <ClInclude Include="SpaceGame\Enemy.h" />
@@ -182,7 +192,9 @@
   <ItemGroup>
     <None Include="..\Build\Assets\PlatformerGame\animations\bat_idle.json" />
     <None Include="..\Build\Assets\PlatformerGame\scenes\scene.json" />
-    <None Include="..\Build\Assets\PlatformerGame\tilemaps\world.json" />
+    <None Include="..\Build\Assets\PlatformerGame\tilemaps\level1.json" />
+    <None Include="..\Build\Assets\PlatformerGame\tilemaps\level2.json" />
+    <None Include="..\Build\Assets\PlatformerGame\tilemaps\level3.json" />
     <None Include="..\Build\Assets\SpaceGame\animations\bat_idle.json" />
     <None Include="..\Build\Assets\SpaceGame\data\scene.json" />
     <None Include="..\Build\Assets\SpaceGame\tilemaps\world.json" />

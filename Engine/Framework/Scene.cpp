@@ -109,6 +109,7 @@ namespace nu
 			return false;
 		}
 
+		std::cout << "Finished reading json: " << sceneName << std::endl;
 		return true;
 	}
 }

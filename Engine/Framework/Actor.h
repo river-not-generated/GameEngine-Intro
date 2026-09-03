@@ -43,7 +43,7 @@ namespace nu {
         // forward declaration only works on references and pointers
         virtual void Draw(const class Renderer& renderer) const;
 
-        virtual void OnStart() const;
+        virtual void OnStart();
         virtual void OnDestroy() const;
 
         virtual void OnCollision(Actor* other) {}

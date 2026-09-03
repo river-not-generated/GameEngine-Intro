@@ -25,10 +25,10 @@ namespace nu {
 				renderer.DrawTexture(*m_texture,
 					m_sourceRect,
 					GetOwner()->GetTransform(),
-					m_flipH);
+					m_flipH, m_origin);
 			}
 			else {
-				renderer.DrawTexture(*m_texture, GetOwner()->GetTransform(), m_flipH);
+				renderer.DrawTexture(*m_texture, GetOwner()->GetTransform(), m_flipH, m_origin);
 			}
 		}
 	}
@@ -37,5 +37,6 @@ namespace nu {
 		RendererComponent::Read(value);
 		JSON_READ_NAME(value, "texture", m_textureName);
 		JSON_READ_NAME(value, "flip_h", m_flipH);
+		JSON_READ_NAME(value, "origin", m_origin);
 	}
 }

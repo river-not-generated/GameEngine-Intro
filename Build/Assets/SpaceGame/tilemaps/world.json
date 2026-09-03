@@ -47,17 +47,6 @@
  "nextlayerid":2,
  "nextobjectid":1,
  "orientation":"orthogonal",
- "properties":[
-        {
-         "name":"has_collision",
-         "type":"bool",
-         "value":true
-        }, 
-        {
-         "name":"texture_name",
-         "type":"string",
-         "value":"tilemaps\/environment.png"
-        }],
  "renderorder":"right-down",
  "tiledversion":"1.12.2",
  "tileheight":16,

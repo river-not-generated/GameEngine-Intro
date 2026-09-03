@@ -126,41 +126,25 @@ namespace nu
         destRect.w = size.x * scale;
         destRect.h = size.y * scale;
 
+        SDL_SetTextureScaleMode(texture.m_texture, SDL_SCALEMODE_NEAREST);
         SDL_RenderTextureRotated(m_renderer, texture.m_texture, NULL, &destRect, angle, NULL, (flipH ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE));
     }
 
-    void Renderer::DrawTexture(const Texture& texture, const Transform& trans, bool flipH) const {
+    void Renderer::DrawTexture(const Texture& texture, const Transform& trans, bool flipH, const Vector2& origin) const {
         Vector2 size = texture.GetSize();
 
         SDL_FRect destRect;
         destRect.w = size.x * trans.scale;
         destRect.h = size.y * trans.scale;
-        destRect.x = trans.position.x - (destRect.w / 2.0f);
-        destRect.y = trans.position.y - (destRect.h / 2.0f);
+        destRect.x = trans.position.x - (destRect.w * origin.x);
+        destRect.y = trans.position.y - (destRect.h * origin.y);
 
-
+        SDL_SetTextureScaleMode(texture.m_texture, SDL_SCALEMODE_NEAREST);
         SDL_RenderTextureRotated(m_renderer, texture.m_texture, NULL, &destRect, trans.rotation, NULL, (flipH ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE));
     }
 
-    void Renderer::DrawTexture(const Texture& texture, const Rect& source, const Transform& trans, bool flipH) const
-    {
-        SDL_FRect sourceRect;
-        sourceRect.x = source.x;
-        sourceRect.y = source.y;
-        sourceRect.w = source.w;
-        sourceRect.h = source.h;
 
-        SDL_FRect destRect;
-        destRect.w = sourceRect.w * trans.scale;
-        destRect.h = sourceRect.h * trans.scale;
-        destRect.x = trans.position.x - (destRect.w / 2.0f);
-        destRect.y = trans.position.y - (destRect.h / 2.0f);
-
-        // I miss C#
-        SDL_RenderTextureRotated(m_renderer, texture.m_texture, &sourceRect, &destRect, trans.rotation, NULL, (flipH ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE));
-    }
-
-    void Renderer::DrawTexture(const Texture& texture, const Rect& source, const Vector2& position, float rotation, float scale, bool flipH) const
+    void Renderer::DrawTexture(const Texture& texture, const Rect& source, const Vector2& position, float rotation, float scale, bool flipH, const Vector2& origin) const
     {
         SDL_FRect sourceRect;
         sourceRect.x = source.x;
@@ -171,14 +155,17 @@ namespace nu
         SDL_FRect destRect;
         destRect.w = sourceRect.w * scale;
         destRect.h = sourceRect.h * scale;
-        destRect.x = position.x - (destRect.w / 2.0f);
-        destRect.y = position.y - (destRect.h / 2.0f);
+        destRect.x = position.x - (destRect.w * origin.x);
+        destRect.y = position.y - (destRect.h * origin.y);
 
         SDL_SetTextureScaleMode(texture.m_texture, SDL_SCALEMODE_NEAREST);
-        // I miss C#
         SDL_RenderTextureRotated(m_renderer, texture.m_texture, &sourceRect, &destRect, rotation, NULL, (flipH ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE));
     }
 
+    void Renderer::DrawTexture(const class Texture& texture, const struct Rect& source, const struct Transform& trans, bool flipH, const Vector2& origin) const
+    {
+        DrawTexture(texture, source, trans.position, trans.rotation, trans.scale, flipH, origin);
+    }
 
     void Renderer::DrawDebugText(float x, float y, const char* text) const
     {
